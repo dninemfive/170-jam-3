@@ -11,6 +11,7 @@ namespace JamazonBrine
     /// </summary>
     public abstract class Archetype
     {
-
+        public abstract Move SelectMove();
+        public virtual List<Move> Moves { get; set; }
     }
 }

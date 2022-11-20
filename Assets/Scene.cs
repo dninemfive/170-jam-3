@@ -5,24 +5,23 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace JamazonBrine
-{
-    public enum Side { Left, Right }
-    public record CharacterLocation
-    {
-        Side Side;
-        int Order;
-        public CharacterLocation(Side side, int order)
-        {
-            Side = side;
-            Order = order;
-        }
-    }
+{     
     public class Scene
     {
         public string Name;
-        private Dictionary<CharacterLocation, Character> CharactersPresent = new();
+        private readonly Dictionary<CharacterLocation, Character> CharactersPresent = new();
         public Character this[CharacterLocation loc] => CharactersPresent[loc];
         public Character this[Side side, int order] => CharactersPresent[new(side, order)];
+        public Side StartingSide;
+        public IEnumerable<Character> CharactersOn(Side side) => CharactersPresent
+            .Where(x => x.Key.Side == side)
+            .OrderBy(x => x.Key.Order)
+            .Select(x => x.Value);
+        public IEnumerable<Character> LeftSideCharacters => CharactersOn(Side.Left);
+        public IEnumerable<Character> RightSideCharacters => CharactersOn(Side.Right);
+        public delegate Side? WinConditionChecker(Scene scene);
+        public WinConditionChecker WinCondition;
+        public Side? CheckWinCondition => WinCondition(this);
         public void Add(Character character, CharacterLocation location)
         {
             if (CharactersPresent.Values.Contains(character)) throw new Exception($"The scene {Name} already contains the character {character.Name}!");

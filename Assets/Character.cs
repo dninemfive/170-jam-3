@@ -11,8 +11,9 @@ namespace JamazonBrine
     {
         public string Name;
         public Texture2D Sprite;
-        public CharacterLocation CurrentLocation;
         public Archetype Archetype;
+        public Faction Faction;
+        public bool IsPlayerControlled => Faction == GameManager.PlayerFaction;
 
         // Start is called before the first frame update
         void Start()
@@ -25,5 +26,16 @@ namespace JamazonBrine
         {
 
         }
-    }
+        public void DoTurn()
+        {
+            if(IsPlayerControlled)
+            {
+                Debug.Log($"\t\tAwaiting player input for character {Name}...");
+            }
+            else
+            {
+                Debug.Log($"\t\tCharacter {name} selects move {Archetype.SelectMove()}.");
+            }
+        }
+    }    
 }
