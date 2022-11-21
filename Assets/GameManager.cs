@@ -39,7 +39,7 @@ namespace JamazonBrine
     // Start is called before the first frame update
         void Start()
         {
-
+            foreach (Scene scene in Data.Scenes) DoScene(scene);
         }
 
         // Update is called once per frame

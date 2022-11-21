@@ -22,7 +22,13 @@ namespace JamazonBrine
         public delegate Side? WinConditionChecker(Scene scene);
         public WinConditionChecker WinCondition;
         public Side? CheckWinCondition => WinCondition(this);
-        public void Add(Character character, CharacterLocation location)
+        public Scene(string name, WinConditionChecker checker, params (string name, CharacterLocation location)[] characterLocations)
+        {
+            Name = name;
+            WinCondition = checker;
+            foreach ((string cName, CharacterLocation location) in characterLocations) Add(Data.Characters[cName], location);
+        }
+        private void Add(Character character, CharacterLocation location)
         {
             if (CharactersPresent.Values.Contains(character)) throw new Exception($"The scene {Name} already contains the character {character.Name}!");
             if (CharactersPresent.ContainsKey(location)) throw new Exception($"The scene {Name} already contains a character at {location}!");
