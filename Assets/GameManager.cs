@@ -31,15 +31,13 @@ namespace JamazonBrine
             scene.Load();
             CurrentScene = scene;
             RoundNumber = 0;
-            Side? winner;
-            // Loops until there is a non-null winner of the scene.
-            // Possible todo: support for an outcome other than winning?
-            while((winner = CurrentScene.CheckWinCondition) is not null)
+            SceneStatus status;
+            while((status = CurrentScene.CheckWinCondition) is not SceneStatus.Ongoing)
             {
                 DoRound();
                 RoundNumber++;
             }
-            Debug.Log($"The {winner} side won after {RoundNumber} rounds.");
+            Debug.Log($"The scene {scene.Name} concluded with the result {status} after {RoundNumber} rounds.");
         }
         /// <summary>
         /// Performs one round, which consists of one turn per <see cref="Side"/> present in the scene.

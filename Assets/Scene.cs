@@ -52,8 +52,8 @@ namespace JamazonBrine
         /// A delegate type which determines the winner, if any, of a given scene.
         /// </summary>
         /// <param name="scene">The scene whose conditions to check.</param>
-        /// <returns>The winning <see cref="Side"/>, if one has met the conditions to win, or <c>null</c> otherwise.</returns>
-        public delegate Side? WinConditionChecker(Scene scene);
+        /// <returns>The <see cref="SceneStatus">status</see> of the current scene.</returns>
+        public delegate SceneStatus WinConditionChecker(Scene scene);
         /// <summary>
         /// The <see cref="WinConditionChecker">win condition</see> for this particular scene.
         /// </summary>
@@ -61,7 +61,7 @@ namespace JamazonBrine
         /// <summary>
         /// Checks the <see cref="WinCondition">WinCondition</see> for this scene. See <see cref="WinConditionChecker"/> for more details.
         /// </summary>
-        public Side? CheckWinCondition => WinCondition(this);
+        public SceneStatus CheckWinCondition => WinCondition(this);
         /// <summary>
         /// Stores the names and locations of the characters in this scene until it's loaded.
         /// </summary>

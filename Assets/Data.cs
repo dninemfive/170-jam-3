@@ -34,7 +34,7 @@ namespace JamazonBrine
         private static readonly List<Scene> scenes = new()
         {
             new("Debug Scene", 
-                (Scene _) => GameManager.RoundNumber > 1 ? null : Side.Left, 
+                (Scene _) => GameManager.RoundNumber > 1 ? SceneStatus.Ongoing : SceneStatus.NeitherWon, 
                 ("Jim", new(Side.Left, 1)), 
                 ("Bront", new(Side.Right, 1))
                )
