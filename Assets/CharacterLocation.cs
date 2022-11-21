@@ -24,5 +24,6 @@ namespace JamazonBrine
             Side = side;
             Order = order;
         }
+        public override string ToString() => $"({Side}, {Order})";
     }
 }

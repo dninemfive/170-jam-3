@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UnityEngine;
 
 namespace JamazonBrine
 {     
@@ -62,18 +63,22 @@ namespace JamazonBrine
         /// </summary>
         public Side? CheckWinCondition => WinCondition(this);
         /// <summary>
+        /// Stores the names and locations of the characters in this scene until it's loaded.
+        /// </summary>
+        private List<(string name, CharacterLocation location)> characterLocations;
+        /// <summary>
         /// Creates a new scene with the specified parameters.
         /// </summary>
         /// <param name="name">The name of this scene; currently unused.</param>
         /// <param name="checker">The <see cref="WinConditionChecker"/> which determines when the scene concludes.</param>
-        /// <param name="characterLocations">The characters present in the scene. As this is a 
+        /// <param name="_characterLocations">The characters present in the scene. As this is a 
         /// <see href="https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/params">params</see> 
         /// argument, these can simply be comma-delimited.</param>
-        public Scene(string name, WinConditionChecker checker, params (string name, CharacterLocation location)[] characterLocations)
+        public Scene(string name, WinConditionChecker checker, params (string name, CharacterLocation location)[] _characterLocations)
         {
             Name = name;
             WinCondition = checker;
-            foreach ((string cName, CharacterLocation location) in characterLocations) Add(Data.Characters[cName], location);
+            characterLocations = _characterLocations.ToList();
         }
         /// <summary>
         /// Adds a character to this scene, checking that they are uniquely named and positioned.
@@ -83,9 +88,17 @@ namespace JamazonBrine
         /// <remarks>Throws an error if the character's name is not unique or its location is already filled.</remarks>
         private void Add(Character character, CharacterLocation location)
         {
+            Debug.Log($"Trying to add character {character.Name} at {location} in scene {Name}.");
             if (CharactersPresent.Values.Contains(character)) throw new Exception($"The scene {Name} already contains the character {character.Name}!");
             if (CharactersPresent.ContainsKey(location)) throw new Exception($"The scene {Name} already contains a character at {location}!");
             CharactersPresent[location] = character;
+        }
+        /// <summary>
+        /// Loads this scene, updating the UI and populating <see cref="CharactersPresent"/>.
+        /// </summary>
+        public void Load()
+        {
+            foreach ((string cName, CharacterLocation location) in characterLocations) Add(Data.Characters[cName], location);
         }
     }
 }

@@ -17,7 +17,7 @@ namespace JamazonBrine
         /// <summary>
         /// The number of rounds which have elapsed, including the current round. Starts at 1.
         /// </summary>
-        public static int RoundNumber { get; private set; } = 1;
+        public static int RoundNumber { get; private set; }
         /// <summary>
         /// The <see cref="Faction"/> which the player controls during combat.
         /// </summary>
@@ -28,14 +28,16 @@ namespace JamazonBrine
         /// <param name="scene">The scene to execute.</param>
         public static void DoScene(Scene scene)
         {
+            scene.Load();
             CurrentScene = scene;
-            RoundNumber = 1;
+            RoundNumber = 0;
             Side? winner;
             // Loops until there is a non-null winner of the scene.
             // Possible todo: support for an outcome other than winning?
             while((winner = CurrentScene.CheckWinCondition) is not null)
             {
                 DoRound();
+                RoundNumber++;
             }
             Debug.Log($"The {winner} side won after {RoundNumber} rounds.");
         }

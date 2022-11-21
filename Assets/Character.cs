@@ -7,7 +7,7 @@ namespace JamazonBrine
     /// <summary>
     /// Class representing a single unique character.
     /// </summary>
-    public class Character : MonoBehaviour
+    public class Character
     {
         /// <summary>
         /// The name of this character. Should be unique.
@@ -48,7 +48,7 @@ namespace JamazonBrine
             }
             else
             {
-                Debug.Log($"\t\tCharacter {name} selects move {Archetype.SelectMove()}.");
+                Debug.Log($"\t\tCharacter {Name} selects move {Archetype.SelectMove()}.");
             }
         }
     }    
