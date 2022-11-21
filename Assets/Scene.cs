@@ -20,31 +20,31 @@ namespace JamazonBrine
         /// The characters present in the scene, indexed by their locations. <c>private</c> so that it cannot be modified during gameplay,
         /// as the <c>readonly</c> modifier does not prevent modifying the variable, only overwriting it.
         /// </summary>
-        private readonly Dictionary<CharacterLocation, Character> CharactersPresent = new();
+        private readonly Dictionary<CharacterLocation, CharacterDef> CharactersPresent = new();
         /// <summary>
-        /// Gets the <see cref="Character"/> at the specified <see cref="CharacterLocation"/> in this scene.
+        /// Gets the <see cref="CharacterDef"/> at the specified <see cref="CharacterLocation"/> in this scene.
         /// </summary>
         /// <param name="loc">The location whose character to find.</param>
-        /// <returns>The <see cref="Character"/> at the specified location. Will throw an error if no character is at that location!</returns>
-        public Character this[CharacterLocation loc] => CharactersPresent[loc];
+        /// <returns>The <see cref="CharacterDef"/> at the specified location. Will throw an error if no character is at that location!</returns>
+        public CharacterDef this[CharacterLocation loc] => CharactersPresent[loc];
         /// <summary>
-        /// Gets the <see cref="Character"/> on the specified <see cref="Side"/> and order.
+        /// Gets the <see cref="CharacterDef"/> on the specified <see cref="Side"/> and order.
         /// </summary>
         /// <param name="side">The side on which the character is located.</param>
         /// <param name="order">The position the character occupies in the order.</param>
-        /// <returns>The <see cref="Character"/> at the specified location.</returns>
+        /// <returns>The <see cref="CharacterDef"/> at the specified location.</returns>
         /// <remarks>Will throw an error if no character is at that location!</remarks>
-        public Character this[Side side, int order] => CharactersPresent[new(side, order)];
+        public CharacterDef this[Side side, int order] => CharactersPresent[new(side, order)];
         /// <summary>
         /// The <see cref="Side"/> which goes first in this scene.
         /// </summary>
         public Side StartingSide;
         /// <summary>
-        /// The <see cref="Character"/>s present on the specified <see cref="Side"/> in this scene.
+        /// The <see cref="CharacterDef"/>s present on the specified <see cref="Side"/> in this scene.
         /// </summary>
-        /// <param name="side">The <see cref="Side"/> whose <see cref="Character"/>s to return.</param>
-        /// <returns>The <see cref="Character"/>s on the specified <see cref="Side"/>.</returns>
-        public IEnumerable<Character> CharactersOn(Side side) => CharactersPresent
+        /// <param name="side">The <see cref="Side"/> whose <see cref="CharacterDef"/>s to return.</param>
+        /// <returns>The <see cref="CharacterDef"/>s on the specified <see cref="Side"/>.</returns>
+        public IEnumerable<CharacterDef> CharactersOn(Side side) => CharactersPresent
             .Where(x => x.Key.Side == side)
             .OrderBy(x => x.Key.Order)
             .Select(x => x.Value);
@@ -83,10 +83,10 @@ namespace JamazonBrine
         /// <summary>
         /// Adds a character to this scene, checking that they are uniquely named and positioned.
         /// </summary>
-        /// <param name="character">The <see cref="Character"/> to add.</param>
+        /// <param name="character">The <see cref="CharacterDef"/> to add.</param>
         /// <param name="location">The <see cref="CharacterLocation">location</see> at which to add the character.</param>
         /// <remarks>Throws an error if the character's name is not unique or its location is already filled.</remarks>
-        private void Add(Character character, CharacterLocation location)
+        private void Add(CharacterDef character, CharacterLocation location)
         {
             Debug.Log($"Trying to add character {character.Name} at {location} in scene {Name}.");
             if (CharactersPresent.Values.Contains(character)) throw new Exception($"The scene {Name} already contains the character {character.Name}!");

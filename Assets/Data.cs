@@ -13,9 +13,9 @@ namespace JamazonBrine
     public static class Data
     {
         /// <summary>
-        /// A list of all <see cref="Character"/>s in the game. Used to populate the <see cref="Characters"/> dictionary.
+        /// A list of all <see cref="CharacterDef"/>s in the game. Used to populate the <see cref="Characters"/> dictionary.
         /// </summary>
-        private static readonly List<Character> characters = new()
+        private static readonly List<CharacterDef> characters = new()
         {
             new("Jim", Texture2D.whiteTexture, Archetype.DebugArchetype, Faction.Good),
             new("Liz", Texture2D.whiteTexture, Archetype.DebugArchetype, Faction.Good),
@@ -25,9 +25,9 @@ namespace JamazonBrine
             new("James", Texture2D.whiteTexture, Archetype.DebugArchetype, Faction.Bad)
         };
         /// <summary>
-        /// All <see cref="Character"/>s in the game, indexed by name.
+        /// All <see cref="CharacterDef"/>s in the game, indexed by name.
         /// </summary>
-        public static readonly Dictionary<string, Character> Characters = new();
+        public static readonly Dictionary<string, CharacterDef> Characters = new();
         /// <summary>
         /// A list of all <see cref="Scene"/>s in the game. Used to populate the <see cref="Scenes"/> enumerable.
         /// </summary>
@@ -54,7 +54,7 @@ namespace JamazonBrine
         /// </summary>
         static Data()
         {
-            foreach (Character character in characters)
+            foreach (CharacterDef character in characters)
             {
                 if (Characters.ContainsKey(character.Name)) throw new Exception($"Tried to add {character} to the database but a character with that name already exists.");
                 Characters.Add(character.Name, character);

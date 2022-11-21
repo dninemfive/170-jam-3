@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UnityEngine;
 
 namespace JamazonBrine
 {
@@ -23,5 +24,12 @@ namespace JamazonBrine
             Side.Right => Side.Left,
             _ => throw new ArgumentOutOfRangeException(nameof(side))
         };
+        /// <summary>
+        /// Converts the specified <see cref="Texture2D"/> into a sprite, using the entire texture.
+        /// </summary>
+        /// <param name="tex">The <see cref="Texture2D"/> to make the sprite from.</param>
+        /// <returns>A sprite using the entire texture specified.</returns>
+        /// <remarks>Used <see href="https://answers.unity.com/questions/650552/convert-a-texture2d-to-sprite.html">this page</see> for reference.</remarks>
+        public static Sprite ToSprite(this Texture2D tex) => Sprite.Create(tex, new(0, 0, tex.width, tex.height), new(0.5f, 0.5f));
     }    
 }

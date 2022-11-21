@@ -11,7 +11,7 @@ namespace JamazonBrine
     /// </summary>
     public enum Side { Left, Right }
     /// <summary>
-    /// The faction a <see cref="Character"/> is on. If this matches the <see cref="GameManager.PlayerFaction">player's faction</see>, the character is player-controlled.
+    /// The faction a <see cref="CharacterDef"/> is on. If this matches the <see cref="GameManager.PlayerFaction">player's faction</see>, the character is player-controlled.
     /// </summary>
     public enum Faction { Good, Bad }
     /// <summary>

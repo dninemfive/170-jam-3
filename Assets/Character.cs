@@ -1,55 +1,49 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 namespace JamazonBrine
 {
     /// <summary>
-    /// Class representing a single unique character.
+    /// <see cref="MonoBehaviour"/> which connects a character's Def to its sprite and adjusts it accordingly.
     /// </summary>
-    public class Character
+    public class Character : MonoBehaviour
     {
         /// <summary>
-        /// The name of this character. Should be unique.
+        /// The <see cref="CharacterDef"/> corresponding to this character, holding metadata like the name and archetype.
         /// </summary>
-        public string Name;
+        public CharacterDef Def = null;
         /// <summary>
-        /// The texture this character uses.
+        /// Used to cache this character's <c>SpriteRenderer</c> for better performance.
         /// </summary>
-        public Texture2D Sprite;
+        private SpriteRenderer sprite = null;
         /// <summary>
-        /// This character's <see cref="Archetype"/>, which controls which moves it can play during gameplay.
+        /// Gets this character's <c>SpriteRenderer</c>, caching it if it has not yet been cached.
         /// </summary>
-        public Archetype Archetype;
-        /// <summary>
-        /// This character's <see cref="Faction"/>, which determines whether it is player-controlled during gameplay.
-        /// </summary>
-        public Faction Faction;
-        /// <summary>
-        /// Whether the player can control this character.
-        /// </summary>
-        public bool IsPlayerControlled => Faction == GameManager.PlayerFaction;
-        public Character(string name, Texture2D sprite, Archetype archetype, Faction faction)
+        public SpriteRenderer Sprite
         {
-            Name = name;
-            Sprite = sprite;
-            Archetype = archetype;
-            Faction = faction;
-        }
-        /// <summary>
-        /// Called to have this character perform its role in the turn. If player-controlled, awaits player input;
-        /// otherwise, its <see cref="JamazonBrine.Archetype"/> selects a move and the character plays it.
-        /// </summary>
-        public void DoTurn()
-        {
-            if(IsPlayerControlled)
+            get
             {
-                Debug.Log($"\t\tAwaiting player input for character {Name}...");
-            }
-            else
-            {
-                Debug.Log($"\t\tCharacter {Name} selects move {Archetype.SelectMove()}.");
+                if (sprite is null)
+                {
+                    sprite = GetComponent<SpriteRenderer>();
+                }
+                return sprite;
             }
         }
-    }    
+        // Start is called before the first frame update
+        void Start()
+        {
+            if (Def is null) throw new Exception("An instance of the Character monobehaviour has a null def at start. Make sure to assign the Def " +
+                                                 "field immediately after instantiating.");
+            Sprite.sprite = Def.Texture.ToSprite();
+        }
+
+        // Update is called once per frame
+        void Update()
+        {
+
+        }
+    }
 }
