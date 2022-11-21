@@ -98,7 +98,11 @@ namespace JamazonBrine
         /// </summary>
         public void Load()
         {
-            foreach ((string cName, CharacterLocation location) in characterLocations) Add(Data.Characters[cName], location);
+            foreach ((string cName, CharacterLocation location) in characterLocations)
+            {
+                Add(Data.Characters[cName], location);
+                Data.Characters[cName].InstantiateCharacterAt(location);
+            }
         }
     }
 }

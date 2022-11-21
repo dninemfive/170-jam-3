@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using System;
 
 namespace JamazonBrine 
 {
@@ -10,6 +11,14 @@ namespace JamazonBrine
     /// </summary>
     public class GameManager : MonoBehaviour
     {
+        /// <summary>
+        /// A static reference to the only GameManager which exists.
+        /// </summary>
+        public static GameManager Instance = null;
+        /// <summary>
+        /// The prefab corresponding to a <see cref="CharacterDef"/>, and which has a <see cref="Character"/> component attached.
+        /// </summary>
+        public GameObject CharacterPrefab;
         /// <summary>
         /// The current <see cref="Scene"/> being played.
         /// </summary>
@@ -65,6 +74,14 @@ namespace JamazonBrine
         /// </summary>
         void Start()
         {
+            if (Instance is null)
+            {
+                Instance = this;
+            }
+            else
+            {
+                throw new Exception("Attempted to create a second GameManager. There must be exactly one instance of GameManager at a time!");
+            }
             foreach (Scene scene in Data.Scenes) DoScene(scene);
         }
     }
