@@ -6,28 +6,81 @@ using System.Threading.Tasks;
 
 namespace JamazonBrine
 {     
+    /// <summary>
+    /// Describes a single scene, or level, of gameplay.
+    /// </summary>
     public class Scene
     {
+        /// <summary>
+        /// This scene's name. Not (yet?) used.
+        /// </summary>
         public string Name;
+        /// <summary>
+        /// The characters present in the scene, indexed by their locations. <c>private</c> so that it cannot be modified during gameplay,
+        /// as the <c>readonly</c> modifier does not prevent modifying the variable, only overwriting it.
+        /// </summary>
         private readonly Dictionary<CharacterLocation, Character> CharactersPresent = new();
+        /// <summary>
+        /// Gets the <see cref="Character"/> at the specified <see cref="CharacterLocation"/> in this scene.
+        /// </summary>
+        /// <param name="loc">The location whose character to find.</param>
+        /// <returns>The <see cref="Character"/> at the specified location. Will throw an error if no character is at that location!</returns>
         public Character this[CharacterLocation loc] => CharactersPresent[loc];
+        /// <summary>
+        /// Gets the <see cref="Character"/> on the specified <see cref="Side"/> and order.
+        /// </summary>
+        /// <param name="side">The side on which the character is located.</param>
+        /// <param name="order">The position the character occupies in the order.</param>
+        /// <returns>The <see cref="Character"/> at the specified location.</returns>
+        /// <remarks>Will throw an error if no character is at that location!</remarks>
         public Character this[Side side, int order] => CharactersPresent[new(side, order)];
+        /// <summary>
+        /// The <see cref="Side"/> which goes first in this scene.
+        /// </summary>
         public Side StartingSide;
+        /// <summary>
+        /// The <see cref="Character"/>s present on the specified <see cref="Side"/> in this scene.
+        /// </summary>
+        /// <param name="side">The <see cref="Side"/> whose <see cref="Character"/>s to return.</param>
+        /// <returns>The <see cref="Character"/>s on the specified <see cref="Side"/>.</returns>
         public IEnumerable<Character> CharactersOn(Side side) => CharactersPresent
             .Where(x => x.Key.Side == side)
             .OrderBy(x => x.Key.Order)
             .Select(x => x.Value);
-        public IEnumerable<Character> LeftSideCharacters => CharactersOn(Side.Left);
-        public IEnumerable<Character> RightSideCharacters => CharactersOn(Side.Right);
+        /// <summary>
+        /// A delegate type which determines the winner, if any, of a given scene.
+        /// </summary>
+        /// <param name="scene">The scene whose conditions to check.</param>
+        /// <returns>The winning <see cref="Side"/>, if one has met the conditions to win, or <c>null</c> otherwise.</returns>
         public delegate Side? WinConditionChecker(Scene scene);
+        /// <summary>
+        /// The <see cref="WinConditionChecker">win condition</see> for this particular scene.
+        /// </summary>
         public WinConditionChecker WinCondition;
+        /// <summary>
+        /// Checks the <see cref="WinCondition">WinCondition</see> for this scene. See <see cref="WinConditionChecker"/> for more details.
+        /// </summary>
         public Side? CheckWinCondition => WinCondition(this);
+        /// <summary>
+        /// Creates a new scene with the specified parameters.
+        /// </summary>
+        /// <param name="name">The name of this scene; currently unused.</param>
+        /// <param name="checker">The <see cref="WinConditionChecker"/> which determines when the scene concludes.</param>
+        /// <param name="characterLocations">The characters present in the scene. As this is a 
+        /// <see href="https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/params">params</see> 
+        /// argument, these can simply be comma-delimited.</param>
         public Scene(string name, WinConditionChecker checker, params (string name, CharacterLocation location)[] characterLocations)
         {
             Name = name;
             WinCondition = checker;
             foreach ((string cName, CharacterLocation location) in characterLocations) Add(Data.Characters[cName], location);
         }
+        /// <summary>
+        /// Adds a character to this scene, checking that they are uniquely named and positioned.
+        /// </summary>
+        /// <param name="character">The <see cref="Character"/> to add.</param>
+        /// <param name="location">The <see cref="CharacterLocation">location</see> at which to add the character.</param>
+        /// <remarks>Throws an error if the character's name is not unique or its location is already filled.</remarks>
         private void Add(Character character, CharacterLocation location)
         {
             if (CharactersPresent.Values.Contains(character)) throw new Exception($"The scene {Name} already contains the character {character.Name}!");
