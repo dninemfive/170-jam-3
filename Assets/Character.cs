@@ -33,16 +33,35 @@ namespace JamazonBrine
                 return sprite;
             }
         }
-        private TextMeshProUGUI text = null;
-        public TextMeshProUGUI Text
+        private TextMeshProUGUI nameText = null;
+        public TextMeshProUGUI NameText
         {
             get
             {
-                if(text is null)
+                if(nameText is null)
                 {
-                    text = transform.Find("Canvas/Name").GetComponent<TextMeshProUGUI>();
+                    nameText = transform.Find("Canvas/Name").GetComponent<TextMeshProUGUI>();
                 }
-                return text;
+                return nameText;
+            }
+        }
+        /// <summary>
+        /// Whether the player can control this character.
+        /// </summary>
+        public bool IsPlayerControlled => Def.Faction == GameManager.PlayerFaction;
+        /// <summary>
+        /// Called to have this character perform its role in the turn. If player-controlled, awaits player input;
+        /// otherwise, its <see cref="JamazonBrine.Archetype"/> selects a move and the character plays it.
+        /// </summary>
+        public void DoTurn()
+        {
+            if (IsPlayerControlled)
+            {
+                Debug.Log($"\t\tAwaiting player input for character {Def.Name}...");
+            }
+            else
+            {
+                Debug.Log($"\t\tCharacter {Def.Name} selects move {Def.Archetype.SelectMove()}.");
             }
         }
         // Start is called before the first frame update
@@ -51,7 +70,12 @@ namespace JamazonBrine
             if (Def is null) throw new Exception("An instance of the Character monobehaviour has a null def at start. Make sure to assign the Def " +
                                                  "field immediately after instantiating.");
             Sprite.sprite = Def.Texture.ToSprite();
-            
+            /* todo: see if weird scaling is still an issue once we have actual sprites
+            Debug.Log($"{Sprite.transform} {Sprite.bounds} {Sprite.localBounds}");
+            Sprite.localBounds = new(new(0, 0, 0), new(1, 1, 1));
+            Debug.Log($"{Sprite.transform} {Sprite.bounds} {Sprite.localBounds}");     
+            */
+            NameText.text = Def.Name;
         }
 
         // Update is called once per frame

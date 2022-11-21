@@ -52,7 +52,8 @@ namespace JamazonBrine
         {
             GameObject go = GameObject.Instantiate(GameManager.Instance.CharacterPrefab);
             go.GetComponent<Character>().Def = characterDef;
-            go.transform.position = new(location.Side.Coordinate(), -location.Order, 0);
+            // todo: make size proportional to camera area
+            go.transform.position = new(location.Side.Coordinate() * 1.75f, -location.Order + 1.5f, 0);
             return go;
         }
     }    

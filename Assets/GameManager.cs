@@ -58,13 +58,13 @@ namespace JamazonBrine
             DoTurn(CurrentScene.StartingSide.Opposite());
         }
         /// <summary>
-        /// Performs one <see cref="Side"/>'s turn, consisting of the set of turns of all <see cref="CharacterDef"/>s on that side.
+        /// Performs one <see cref="Side"/>'s turn, consisting of the set of turns of all <see cref="Character"/>s on that side.
         /// </summary>
-        /// <param name="side">The <see cref="Side"/> whose <see cref="CharacterDef"/>s' turns will be executed.</param>
+        /// <param name="side">The <see cref="Side"/> whose <see cref="Character"/>s' turns will be executed.</param>
         public static void DoTurn(Side side)
         {
             Debug.Log($"\tDoing the {side} side's turn...");
-            foreach (CharacterDef character in CurrentScene.CharactersOn(side))
+            foreach (Character character in CurrentScene.CharactersOn(side))
             {
                 character.DoTurn();
             }
