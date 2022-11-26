@@ -40,5 +40,6 @@ sysinfo.txt
 Assets/Resources/BillingMode*
 packages-lock.json
 Logs/
+
 # https://forum.unity.com/threads/github-doesnt-ignore-the-usersettings-folder-and-the-default-2021-dwlt-file.1217259/
 UserSettings/
