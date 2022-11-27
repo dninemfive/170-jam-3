@@ -84,5 +84,14 @@ namespace JamazonBrine
             }
             foreach (Scene scene in Data.Scenes) DoScene(scene);
         }
+        [SerializeField]
+        private GameObject DialogueBox;
+        public void SetUpDialog()
+        {
+            DialogueBox.SetActive(true);
+        }
+        [SerializeField]
+        private GameObject CombatScreen;
+        public void SetUpCombat() { }
     }
 }
