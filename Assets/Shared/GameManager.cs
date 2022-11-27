@@ -70,6 +70,6 @@ namespace JamazonBrine
             // foreach (CombatScenario scene in Data.Scenes) DoScene(scene);
         }
         public static void LoadMainMenu() => SceneManager.LoadSceneAsync("MainMenu");
-        public static void LoadCombatScene() => SceneManager.LoadSceneAsync("Combat");
+        public static void GoToCombatScene() => SceneManager.LoadSceneAsync("Combat");
     }
 }
