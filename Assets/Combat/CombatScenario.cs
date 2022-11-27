@@ -10,7 +10,7 @@ namespace JamazonBrine
     /// <summary>
     /// Describes a single scene, or level, of gameplay.
     /// </summary>
-    public class Scene
+    public class CombatScenario
     {
         /// <summary>
         /// This scene's name. Not (yet?) used.
@@ -53,7 +53,7 @@ namespace JamazonBrine
         /// </summary>
         /// <param name="scene">The scene whose conditions to check.</param>
         /// <returns>The <see cref="SceneStatus">status</see> of the current scene.</returns>
-        public delegate SceneStatus WinConditionChecker(Scene scene);
+        public delegate SceneStatus WinConditionChecker(CombatScenario scene);
         /// <summary>
         /// The <see cref="WinConditionChecker">win condition</see> for this particular scene.
         /// </summary>
@@ -74,7 +74,7 @@ namespace JamazonBrine
         /// <param name="_characterLocations">The characters present in the scene. As this is a 
         /// <see href="https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/params">params</see> 
         /// argument, these can simply be comma-delimited.</param>
-        public Scene(string name, WinConditionChecker checker, params (string name, CharacterLocation location)[] _characterLocations)
+        public CombatScenario(string name, WinConditionChecker checker, params (string name, CharacterLocation location)[] _characterLocations)
         {
             Name = name;
             WinCondition = checker;

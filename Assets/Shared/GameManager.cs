@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using UnityEngine.SceneManagement;
 
 namespace JamazonBrine 
 {
@@ -11,9 +12,9 @@ namespace JamazonBrine
     public class GameManager : MonoBehaviour
     {
         /// <summary>
-        /// The current <see cref="Scene"/> being played.
+        /// The current <see cref="CombatScenario"/> being played.
         /// </summary>
-        public static Scene CurrentScene;
+        public static CombatScenario CurrentScene;
         /// <summary>
         /// The number of rounds which have elapsed, including the current round. Starts at 1.
         /// </summary>
@@ -23,10 +24,10 @@ namespace JamazonBrine
         /// </summary>
         public static Faction PlayerFaction;
         /// <summary>
-        /// Executes an entire <see cref="Scene"/>, playing out rounds until its <see cref="Scene.WinCondition">win condition</see> is met.
+        /// Executes an entire <see cref="CombatScenario"/>, playing out rounds until its <see cref="CombatScenario.WinCondition">win condition</see> is met.
         /// </summary>
         /// <param name="scene">The scene to execute.</param>
-        public static void DoScene(Scene scene)
+        public static void DoScene(CombatScenario scene)
         {
             scene.Load();
             CurrentScene = scene;
@@ -65,7 +66,10 @@ namespace JamazonBrine
         /// </summary>
         void Start()
         {
-            foreach (Scene scene in Data.Scenes) DoScene(scene);
+            SceneManager.LoadSceneAsync("MainMenu");
+            // foreach (CombatScenario scene in Data.Scenes) DoScene(scene);
         }
+        public static void LoadMainMenu() => SceneManager.LoadSceneAsync("MainMenu");
+        public static void LoadCombatScene() => SceneManager.LoadSceneAsync("Combat");
     }
 }
