@@ -65,7 +65,7 @@ namespace JamazonBrine
         /// <summary>
         /// Stores the names and locations of the characters in this scene until it's loaded.
         /// </summary>
-        private List<(string name, CharacterLocation location)> characterLocations;
+        private readonly List<(string name, CharacterLocation location)> characterLocations;
         /// <summary>
         /// Creates a new scene with the specified parameters.
         /// </summary>

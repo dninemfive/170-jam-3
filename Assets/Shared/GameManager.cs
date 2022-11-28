@@ -9,7 +9,7 @@ namespace JamazonBrine
     /// <summary>
     /// The <see cref="MonoBehaviour"/> used to bootstrap the rest of the game logic. Contains the core code for gameplay.
     /// </summary>
-    public class GameManager : MonoBehaviour
+    public static class GameManager
     {
         /// <summary>
         /// The current <see cref="CombatScenario"/> being played.
@@ -23,6 +23,10 @@ namespace JamazonBrine
         /// The <see cref="Faction"/> which the player controls during combat.
         /// </summary>
         public static Faction PlayerFaction;
+        /// <summary>
+        /// Whether a <see cref="Bootstrapper"/> class has initialized the <c>GameManager.</c>
+        /// </summary>
+        public static bool Initialized { get; private set; } = false;
         /// <summary>
         /// Executes an entire <see cref="CombatScenario"/>, playing out rounds until its <see cref="CombatScenario.WinCondition">win condition</see> is met.
         /// </summary>
@@ -64,8 +68,10 @@ namespace JamazonBrine
         /// <summary>
         /// Begins the <see cref="GameManager"/>'s execution of the scenes described in <see cref="Data.scenes"/>.
         /// </summary>
-        void Start()
+        public static void Init()
         {
+            if (Initialized) return;
+            Initialized = true;
             SceneManager.LoadSceneAsync("MainMenu");
             // foreach (CombatScenario scene in Data.Scenes) DoScene(scene);
         }
