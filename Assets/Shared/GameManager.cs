@@ -72,10 +72,10 @@ namespace JamazonBrine
         {
             if (Initialized) return;
             Initialized = true;
-            SceneManager.LoadSceneAsync("MainMenu");
+            Debug.Log("Initialized GameManager");
             // foreach (CombatScenario scene in Data.Scenes) DoScene(scene);
         }
-        public static void LoadMainMenu() => SceneManager.LoadSceneAsync("MainMenu");
-        public static void GoToCombatScene() => SceneManager.LoadSceneAsync("Combat");
+        public static void GoToMainMenu() => Utils.LoadScene("MainMenu");
+        public static void GoToCombatScene() => Utils.LoadScene("Combat");
     }
 }
