@@ -8,6 +8,7 @@ using UnityEditor.UIElements;
 public class DialogueGraph : EditorWindow
 {
     private DialogueGraphView _graphView;
+    private string _fileName = "New Narrative";
 
     [MenuItem("Graph/Dialogue Graph")]
     public static void OpenDialogueGraphWindow(){
@@ -32,8 +33,17 @@ public class DialogueGraph : EditorWindow
     private void GenerateToolbar(){
         Toolbar toolbar = new Toolbar();
 
+        var fileNameTextField = new TextField("File Name:");
+        fileNameTextField.SetValueWithoutNotify(_fileName);
+        fileNameTextField.MarkDirtyRepaint();
+        fileNameTextField.RegisterValueChangedCallback(evt => _fileName = evt.newValue);
+        toolbar.Add(fileNameTextField);
+
+        toolbar.Add(new Button( () => RequestDataOperation(true)) {text = "Save Data"});
+        toolbar.Add(new Button( () => RequestDataOperation(false)) {text = "Load Data"});
+
         var nodeCreateButton = new Button( () => {
-            _graphView.CreateDialogueNode("Dialogue Node");
+            _graphView.CreateNode("Dialogue Node");
         });
 
         nodeCreateButton.text = "Create Node";
@@ -41,6 +51,22 @@ public class DialogueGraph : EditorWindow
 
         rootVisualElement.Add(toolbar);
     }
+
+    public void RequestDataOperation(bool save){
+        if (string.IsNullOrEmpty(_fileName)){
+            EditorUtility.DisplayDialog("Invalid File Name", "Please enter a valid file name.", "OK");
+            return;
+        }
+
+        var saveUtility = GraphSaveUtility.GetInstance(_graphView);
+        if(save)
+            saveUtility.SaveGraph(_fileName);
+        else
+        {
+            saveUtility.LoadGraph(_fileName);
+        }
+    }
+
 
     private void OnDisable(){
         rootVisualElement.Remove(_graphView);

@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
-//for Guid.NewGuid() I can't find the specific namespace it uses
-using System;
+using System; //for Guid.NewGuid() I can't find the specific namespace it uses
 using UnityEditor;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
@@ -13,12 +12,33 @@ public class DialogueGraphView : GraphView
     private readonly Vector2 defaultNodeSize = new Vector2(150, 200);
 
     public DialogueGraphView(){
+
+        styleSheets.Add(Resources.Load<StyleSheet>("DialogueGraph"));
+
+        SetupZoom(ContentZoomer.DefaultMinScale, ContentZoomer.DefaultMaxScale);
+
         this.AddManipulator(new ContentDragger());
         this.AddManipulator(new SelectionDragger());
         this.AddManipulator(new RectangleSelector());
 
+        var grid = new GridBackground();
+        Insert(0, grid);
+        grid.StretchToParentSize();
+
         AddElement(GenerateEntryPointNode());
 
+    }
+
+    public override List<Port> GetCompatiblePorts(Port startPort, NodeAdapter nodeAdapter){
+        var compatiblePorts = new List<Port>();
+
+        ports.ForEach((port) => {
+            if(startPort!=port && startPort.node!=port.node){
+                compatiblePorts.Add(port);
+            }
+        });
+
+        return compatiblePorts;
     }
 
     private Port GeneratePort(DialogueNode node, Direction portDirection, Port.Capacity capacity=Port.Capacity.Single){
@@ -46,6 +66,10 @@ public class DialogueGraphView : GraphView
         return node;
     }
 
+    public void CreateNode(string nodeName){
+        AddElement(CreateDialogueNode(nodeName));
+    }
+
     public DialogueNode CreateDialogueNode(string nodeName){
         var dialogueNode = new DialogueNode
         {
@@ -57,11 +81,32 @@ public class DialogueGraphView : GraphView
         var inputPort = GeneratePort(dialogueNode, Direction.Input, Port.Capacity.Multi);
         inputPort.portName = "Input";
         dialogueNode.inputContainer.Add(inputPort);
+
+        var button = new Button( () => {
+            AddChoicePort(dialogueNode);
+        });
+        
+        button.text = "New Choice";
+        dialogueNode.titleContainer.Add(button);
+
         dialogueNode.RefreshExpandedState();
         dialogueNode.RefreshPorts();
 
         dialogueNode.SetPosition(new Rect(Vector2.zero, defaultNodeSize));
 
         return dialogueNode;
+    }
+
+    private void AddChoicePort(DialogueNode dialogueNode){
+        var generatedPort = GeneratePort(dialogueNode, Direction.Output);
+
+        var outputPortCount = dialogueNode.outputContainer.Query("connector").ToList().Count;
+        generatedPort.portName = $"Choice {outputPortCount}";
+
+        dialogueNode.outputContainer.Add(generatedPort);
+
+        dialogueNode.RefreshPorts();
+        dialogueNode.RefreshExpandedState();
+
     }
 }
