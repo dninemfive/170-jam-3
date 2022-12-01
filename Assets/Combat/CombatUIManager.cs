@@ -10,6 +10,9 @@ namespace JamazonBrine
         [SerializeField]
         private GameObject leftCharacterDisplayPanel;
         public static CharacterDisplayer LeftCharacterDisplayer => Instance.leftCharacterDisplayPanel.GetComponent<CharacterDisplayer>();
+        [SerializeField]
+        private GameObject rightCharacterDisplayPanel;
+        public static CharacterDisplayer RightCharacterDisplayer => Instance.rightCharacterDisplayPanel.GetComponent<CharacterDisplayer>();
         public static CombatUIManager Instance { get; private set; } = null;
         // Start is called before the first frame update
         void Start()
@@ -34,6 +37,7 @@ namespace JamazonBrine
             Debug.Log("CombatUIManager.LoadScenario()");
             GameManager.BeginCurrentScenario();
             LeftCharacterDisplayer.LoadScenario(GameManager.CurrentScenario);
+            RightCharacterDisplayer.LoadScenario(GameManager.CurrentScenario);
         }
     }
 }
