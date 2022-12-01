@@ -21,13 +21,30 @@ MonoBehaviour:
     TargetNodeGUID: e3eff752-5162-48f0-9f24-c9283d4750c4
   - BaseNodeGUID: ec3a20a0-5682-4ed0-bdb5-578f7c179a28
     PortName: No
-    TargetNodeGUID: e3eff752-5162-48f0-9f24-c9283d4750c4
+    TargetNodeGUID: 3f7a0709-ac8e-43a9-8caa-321847aa48fe
+  - BaseNodeGUID: e3eff752-5162-48f0-9f24-c9283d4750c4
+    PortName: Continue 1
+    TargetNodeGUID: a1314f68-4e2f-4358-a854-3229b4561401
+  - BaseNodeGUID: 3f7a0709-ac8e-43a9-8caa-321847aa48fe
+    PortName: Option 1
+    TargetNodeGUID: 38a5b946-c538-4947-a453-8d27514c8c6c
   DialogueNodeData:
   - NodeGUID: ec3a20a0-5682-4ed0-bdb5-578f7c179a28
     DialogueText: Hey you're awake. You must be new here
-    Position: {x: 284.8, y: 161.59999}
+    Position: {x: 292.8, y: 180}
+  - NodeGUID: 3f7a0709-ac8e-43a9-8caa-321847aa48fe
+    DialogueText: Hello there This is node 2
+    Position: {x: 768.8, y: 324}
   - NodeGUID: e3eff752-5162-48f0-9f24-c9283d4750c4
     DialogueText: It seems like you had a rough time
-    Position: {x: 770.4, y: 146.4}
-  ExposedProperties: []
+    Position: {x: 766.4, y: 98.399994}
+  - NodeGUID: a1314f68-4e2f-4358-a854-3229b4561401
+    DialogueText: Your job is going to be a debt collector
+    Position: {x: 1171.2, y: 97.600006}
+  - NodeGUID: 38a5b946-c538-4947-a453-8d27514c8c6c
+    DialogueText: hello
+    Position: {x: 1169.6, y: 321.6}
+  ExposedProperties:
+  - PropertyName: New String
+    PropertyValue: New Value
   CommentBlockData: []
