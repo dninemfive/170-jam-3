@@ -78,6 +78,7 @@ namespace JamazonBrine
         {
             Name = name;
             WinCondition = checker;
+            Debug.Log($"Scene {name} has characters {_characterLocations.Select(x => x.name).CommaSeparatedList()}");
             characterLocations = _characterLocations.ToList();
         }
         /// <summary>

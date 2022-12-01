@@ -16,6 +16,7 @@ namespace JamazonBrine
         {
             Debug.Log($"{Side}CharacterDisplayer.LoadScenario({scenario.Name})");
             List<Character> characters = scenario.CharactersOn(Side).ToList();
+            Debug.Log($"Adding characters {characters.Select(x => x.Name).CommaSeparatedList()}");
             Rect rect = GetComponent<RectTransform>().rect;
             float offset = rect.height / characters.Count, totalOffset = offset;
             foreach(Character c in characters)

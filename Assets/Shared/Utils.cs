@@ -43,8 +43,12 @@ namespace JamazonBrine
         public static GameObject InstantiateCharacter(this Character character, GameObject prefab)
         {
             GameObject characterObject = GameObject.Instantiate(prefab);
-            characterObject.GetComponent<SpriteRenderer>().sprite = character.Texture.ToSprite();
-            characterObject.transform.Find("Nameplate").GetComponent<TextMeshPro>().text = character.Name;
+            characterObject.GetComponent<Image>().sprite = character.Texture.ToSprite();
+            Debug.Log($"Character null? {character is null}");
+            Debug.Log($"Character object null? {characterObject is null}");
+            Debug.Log($"Nameplate null? {characterObject.transform.Find("Nameplate") is null}");
+            Debug.Log($"Component null? {characterObject.transform.Find("Nameplate").GetComponent<TextMeshProUGUI>() is null}");
+            characterObject.transform.Find("Nameplate").GetComponent<TextMeshProUGUI>().text = character.Name;
             return characterObject;
         }
         /// <summary>
@@ -54,5 +58,6 @@ namespace JamazonBrine
         /// <returns>A sprite using the entire texture specified.</returns>
         /// <remarks>Used <see href="https://answers.unity.com/questions/650552/convert-a-texture2d-to-sprite.html">this page</see> for reference.</remarks>
         public static Sprite ToSprite(this Texture2D tex) => Sprite.Create(tex, new(0, 0, tex.width, tex.height), new(0.5f, 0.5f));
+        public static string CommaSeparatedList(this IEnumerable<string> strings) => strings.Aggregate((string a, string b) => $"{a}, {b}");
     }    
 }

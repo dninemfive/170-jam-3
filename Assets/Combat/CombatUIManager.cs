@@ -32,6 +32,7 @@ namespace JamazonBrine
         public static void LoadCurrentScenario()
         {
             Debug.Log("CombatUIManager.LoadScenario()");
+            GameManager.BeginCurrentScenario();
             LeftCharacterDisplayer.LoadScenario(GameManager.CurrentScenario);
         }
     }
