@@ -12,6 +12,15 @@ namespace JamazonBrine
         [SerializeField]
         public GameObject MovePrefab;
         private readonly List<GameObject> CurrentMoves = new();
+        private RectTransform rtf = null;
+        public RectTransform RectTransform
+        {
+            get
+            {
+                if (rtf is null) rtf = GetComponent<RectTransform>();
+                return rtf;
+            }
+        }
         public void LoadMoves(Character character)
         {
             ClearCurrentMoves();
@@ -47,8 +56,16 @@ namespace JamazonBrine
             RectTransform rtf = mo.GetComponent<RectTransform>();
             rtf.transform.SetParent(parentRtf);
             //rtf.localScale = Vector3.one;
-            rtf.transform.position = Vector2.zero;
+            rtf.transform.localPosition = LeftCornerLocalCoords.OffsetBy(-totalOffset);
         }
-        private readonly Vector2 WeirdOffset = new(100, 100);
+        public Vector2 LeftCornerLocalCoords
+        {
+            get
+            {
+                float x = -RectTransform.rect.width / 2;
+                float y = RectTransform.rect.height;
+                return new(x, y);
+            }
+        }
     }
 }
