@@ -61,20 +61,20 @@ namespace JamazonBrine
         /// <remarks>Used <see href="https://answers.unity.com/questions/650552/convert-a-texture2d-to-sprite.html">this page</see> for reference.</remarks>
         public static Sprite ToSprite(this Texture2D tex) => Sprite.Create(tex, new(0, 0, tex.width, tex.height), new(0.5f, 0.5f));
         public static string CommaSeparatedList(this IEnumerable<string> strings) => strings.Aggregate((string a, string b) => $"{a}, {b}");
-        public static float SideCoord(this RectTransform rtf, Side side) => side switch
+        public static float SideCoord(this Rect rect, Side side) => side switch
         {
-            Side.Left => rtf.gameObject.transform.position.x - rtf.rect.width / 2,
-            Side.Right => rtf.gameObject.transform.position.x + rtf.rect.width / 2,
+            Side.Left => rect.xMin,
+            Side.Right => rect.xMax,
             _ => throw new ArgumentOutOfRangeException(nameof(side))
         };
-        public static float VerticalCoord(this RectTransform rtf, VerticalPosition vp) => vp switch
+        public static float VerticalCoord(this Rect rect, VerticalPosition vp) => vp switch
         {
-            VerticalPosition.Top => rtf.gameObject.transform.position.y + rtf.rect.height / 2,
-            VerticalPosition.Bottom => rtf.gameObject.transform.position.y - rtf.rect.height / 2,
+            VerticalPosition.Top => rect.yMin,
+            VerticalPosition.Bottom => rect.yMax,
             _ => throw new ArgumentOutOfRangeException(nameof(vp))
         };
-        public static Vector2 Corner(this RectTransform rtf, Side side, VerticalPosition vp) => new(rtf.SideCoord(side), rtf.VerticalCoord(vp));
-        public static Vector2 TopLeftCorner(this RectTransform rtf) => rtf.Corner(Side.Left, VerticalPosition.Top);
+        public static Vector2 Corner(this Rect rect, Side side, VerticalPosition vp) => new(rect.SideCoord(side), rect.VerticalCoord(vp));
+        public static Vector2 TopLeftCorner(this Rect rect) => rect.Corner(Side.Left, VerticalPosition.Top);
         public static Vector2 OffsetBy(this Vector2 vec, float x = 0, float y = 0) => vec + new Vector2(x, y);
     }    
 }
