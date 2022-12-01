@@ -15,18 +15,16 @@ namespace JamazonBrine
         public void LoadMoves(Character character)
         {
             ClearCurrentMoves();
-            Debug.Log($"ActionDisplayer.LoadMoves({character.Name})");
             List<Move> moves = character.Archetype.Moves;
             RectTransform rtf = GetComponent<RectTransform>();
-            Debug.Log($"Top left corner: {rtf.TopLeftCorner()}");
             float offset = MovePrefab.GetComponent<RectTransform>().rect.height, totalOffset = 0;
             float width = rtf.rect.width;
-            Debug.Log($"offset is {offset}, width is {width}, anchored position = {rtf.anchoredPosition}");
             foreach(Move m in moves)
             {
                 PlaceMove(m, rtf, totalOffset);
                 totalOffset += offset;
             }
+            foreach (GameObject go in CurrentMoves) Debug.Log($"Move {go.name} is at {go.transform.position} / {go.GetComponent<RectTransform>().position}");
         }
         public void ClearCurrentMoves()
         {
@@ -47,12 +45,10 @@ namespace JamazonBrine
             GameObject mo = m.Instantiate(MovePrefab);
             CurrentMoves.Add(mo);
             RectTransform rtf = mo.GetComponent<RectTransform>();
-            rtf.anchoredPosition = parentRtf.anchoredPosition;
-            rtf.anchorMin = Vector2.right;
-            rtf.anchorMax = Vector2.up;
-            rtf.pivot = new(0, 0);
             rtf.transform.SetParent(parentRtf);
-            Debug.Log($"Placed {m.Name} at {rtf.position}");
+            //rtf.localScale = Vector3.one;
+            rtf.transform.position = Vector2.zero;
         }
+        private readonly Vector2 WeirdOffset = new(100, 100);
     }
 }

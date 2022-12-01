@@ -68,7 +68,6 @@ namespace JamazonBrine
         /// <param name="side">The <see cref="Side"/> whose <see cref="Character"/>s' turns will be executed.</param>
         public static void DoTurn(Side side)
         {
-            Debug.Log($"\tDoing the {side} side's turn...");
             foreach (Character character in CurrentScenario.CharactersOn(side))
             {                
                 character.DoTurn();

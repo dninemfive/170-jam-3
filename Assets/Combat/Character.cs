@@ -45,11 +45,11 @@ namespace JamazonBrine
             CombatUIManager.MoveDisplayer.LoadMoves(this);
             if(IsPlayerControlled)
             {
-                Debug.Log($"\t\tAwaiting player input for character {Name}...");
+                Debug.Log($"Awaiting player input for character {Name}...");
             }
             else
             {
-                Debug.Log($"\t\tCharacter {Name} selects move {Archetype.SelectMove()}.");
+                Debug.Log($"Character {Name} selects move {Archetype.SelectMove()}.");
             }
         }
     }    
