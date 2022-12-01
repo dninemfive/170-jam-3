@@ -21,7 +21,7 @@ namespace JamazonBrine
             Debug.Log($"Top left corner: {rtf.TopLeftCorner()}");
             float offset = MovePrefab.GetComponent<RectTransform>().rect.height, totalOffset = 0;
             float width = rtf.rect.width;
-            Debug.Log($"offset is {offset}, width is {width}");
+            Debug.Log($"offset is {offset}, width is {width}, anchored position = {rtf.anchoredPosition}");
             foreach(Move m in moves)
             {
                 PlaceMove(m, rtf, totalOffset);
@@ -34,15 +34,25 @@ namespace JamazonBrine
             foreach (GameObject go in CurrentMoves) Destroy(go);
             CurrentMoves.Clear();
         }
-        public void PlaceMove(Move m, RectTransform rtf, float totalOffset)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="m"></param>
+        /// <param name="parentRtf"></param>
+        /// <param name="totalOffset"></param>
+        /// <remarks>Referenced <see href="https://answers.unity.com/questions/1007886/how-to-set-the-new-unity-ui-rect-transform-anchor.html">this</see>.</remarks>
+        public void PlaceMove(Move m, RectTransform parentRtf, float totalOffset)
         {
             Debug.Log($"Placing move {m.Name}...");
             GameObject mo = m.Instantiate(MovePrefab);
             CurrentMoves.Add(mo);
-            mo.transform.SetParent(transform);
-            Vector3 tf = rtf.TopLeftCorner().OffsetBy(y: totalOffset);
-            Debug.Log($"Placed {m.Name} at {tf}");
-            mo.transform.position = tf;
+            RectTransform rtf = mo.GetComponent<RectTransform>();
+            rtf.anchoredPosition = parentRtf.anchoredPosition;
+            rtf.anchorMin = Vector2.right;
+            rtf.anchorMax = Vector2.up;
+            rtf.pivot = new(0, 0);
+            rtf.transform.SetParent(parentRtf);
+            Debug.Log($"Placed {m.Name} at {rtf.position}");
         }
     }
 }
