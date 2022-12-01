@@ -61,5 +61,19 @@ namespace JamazonBrine
         /// <remarks>Used <see href="https://answers.unity.com/questions/650552/convert-a-texture2d-to-sprite.html">this page</see> for reference.</remarks>
         public static Sprite ToSprite(this Texture2D tex) => Sprite.Create(tex, new(0, 0, tex.width, tex.height), new(0.5f, 0.5f));
         public static string CommaSeparatedList(this IEnumerable<string> strings) => strings.Aggregate((string a, string b) => $"{a}, {b}");
+        public static float SideCoord(this Rect rect, Side side) => side switch
+        {
+            Side.Left => rect.x,
+            Side.Right => rect.x + rect.width,
+            _ => throw new ArgumentOutOfRangeException(nameof(side))
+        };
+        public static float VerticalCoord(this Rect rect, VerticalPosition vp) => vp switch
+        {
+            VerticalPosition.Top => rect.y,
+            VerticalPosition.Bottom => rect.y + rect.height,
+            _ => throw new ArgumentOutOfRangeException(nameof(vp))
+        };
+        public static Vector2 Corner(this Rect rect, Side side, VerticalPosition vp) => new(rect.SideCoord(side), rect.VerticalCoord(vp));
+        public static Vector2 TopLeftCorner(this Rect rect) => new(0, 0);
     }    
 }

@@ -18,4 +18,5 @@ namespace JamazonBrine
     /// The result of a scene, either <c>Ongoing</c> or the scene's final outcome.
     /// </summary>
     public enum SceneStatus { Ongoing, LeftWon, RightWon, NeitherWon, BothWon }
+    public enum VerticalPosition { Top, Bottom }
 }
