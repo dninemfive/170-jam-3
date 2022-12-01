@@ -42,6 +42,7 @@ namespace JamazonBrine
         /// </summary>
         public void DoTurn()
         {
+            CombatUIManager.MoveDisplayer.LoadMoves(this);
             if(IsPlayerControlled)
             {
                 Debug.Log($"\t\tAwaiting player input for character {Name}...");

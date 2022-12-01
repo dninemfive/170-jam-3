@@ -40,12 +40,18 @@ namespace JamazonBrine
                 Debug.Log($"Error adding action {action} to game object {gameObject.name}:\n{e}");
             }
         }
-        public static GameObject InstantiateCharacter(this Character character, GameObject prefab)
+        public static GameObject Instantiate(this Character character, GameObject prefab)
         {
             GameObject characterObject = GameObject.Instantiate(prefab);
             characterObject.GetComponent<Image>().sprite = character.Texture.ToSprite();
             characterObject.transform.Find("Nameplate").GetComponent<TextMeshProUGUI>().text = character.Name;
             return characterObject;
+        }
+        public static GameObject Instantiate(this Move move, GameObject prefab)
+        {
+            GameObject actionObject = GameObject.Instantiate(prefab);
+            actionObject.transform.Find("Nameplate").GetComponent<TextMeshProUGUI>().text = move.Name;
+            return actionObject;
         }
         /// <summary>
         /// Converts the specified <see cref="Texture2D"/> into a sprite, using the entire texture.

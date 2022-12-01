@@ -39,12 +39,11 @@ namespace JamazonBrine
         /// <summary>
         /// Executes an entire <see cref="CombatScenario"/>, playing out rounds until its <see cref="CombatScenario.WinCondition">win condition</see> is met.
         /// </summary>
-        public static void BeginCurrentScenario()
+        public static void PerformCurrentScenario()
         {
-            CurrentScenario.Load();
             RoundNumber = 0;
             SceneStatus status;
-            while((status = CurrentScenario.CheckWinCondition) is not SceneStatus.Ongoing)
+            while ((status = CurrentScenario.CheckWinCondition) is not SceneStatus.Ongoing)
             {
                 DoRound();
                 RoundNumber++;
@@ -68,8 +67,7 @@ namespace JamazonBrine
         {
             Debug.Log($"\tDoing the {side} side's turn...");
             foreach (Character character in CurrentScenario.CharactersOn(side))
-            {
-                
+            {                
                 character.DoTurn();
             }
         }
