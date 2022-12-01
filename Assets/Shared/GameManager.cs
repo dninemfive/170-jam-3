@@ -11,10 +11,19 @@ namespace JamazonBrine
     /// </summary>
     public static class GameManager
     {
+        private static CombatScenario currentScenario = null;
         /// <summary>
         /// The current <see cref="CombatScenario"/> being played.
         /// </summary>
-        public static CombatScenario CurrentScenario;
+        public static CombatScenario CurrentScenario {
+            get => currentScenario;
+            set
+            {
+                Debug.Log($"Setting current scenario to {value.Name}");
+                currentScenario = value;
+                CombatUIManager.LoadCurrentScenario();
+            }
+        }
         /// <summary>
         /// The number of rounds which have elapsed, including the current round. Starts at 1.
         /// </summary>
@@ -67,7 +76,7 @@ namespace JamazonBrine
             }
         }
         /// <summary>
-        /// Begins the <see cref="GameManager"/>'s execution of the scenes described in <see cref="Data.scenes"/>.
+        /// Begins the <see cref="GameManager"/>'s execution of the scenes described in <see cref="Data.scenarios"/>.
         /// </summary>
         public static void Init()
         {
@@ -79,7 +88,7 @@ namespace JamazonBrine
         public static void GoToMainMenu() => Utils.LoadScene("MainMenu");
         public static void GoToCombatScene()
         {
-            Utils.LoadScene("Combat");            
+            Utils.LoadScene("Combat");
         }
     }
 }

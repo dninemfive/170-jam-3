@@ -14,6 +14,7 @@ namespace JamazonBrine
         private Side Side;
         public void LoadScenario(CombatScenario scenario)
         {
+            Debug.Log($"{Side}CharacterDisplayer.LoadScenario({scenario.Name})");
             List<Character> characters = scenario.CharactersOn(Side).ToList();
             Rect rect = GetComponent<RectTransform>().rect;
             float offset = rect.height / characters.Count, totalOffset = offset;

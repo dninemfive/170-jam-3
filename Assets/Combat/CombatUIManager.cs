@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace JamazonBrine
@@ -15,15 +16,23 @@ namespace JamazonBrine
         {
             if(Instance is not null)
             {
-                Debug.LogWarning($"Initializing CombatUIManager on object {gameObject.name}, but an Instance thereof already exists!");
+                return;
+                // Debug.LogWarning($"Initializing CombatUIManager on object {gameObject.name}, but an Instance thereof already exists!");
             }
+            Debug.Log($"Initializing CombatUIManager on object {gameObject.name}...");
             Instance = this;
+            if (GameManager.CurrentScenario is null) GameManager.CurrentScenario = Data.Scenarios.First();
         }
 
         // Update is called once per frame
         void Update()
         {
 
+        }
+        public static void LoadCurrentScenario()
+        {
+            Debug.Log("CombatUIManager.LoadScenario()");
+            LeftCharacterDisplayer.LoadScenario(GameManager.CurrentScenario);
         }
     }
 }
