@@ -46,7 +46,7 @@ namespace JamazonBrine
             CurrentCharacters.Add(co);
             co.transform.SetParent(transform);
             Vector3 tf = new(RectTransform.rect.center.x, RectTransform.rect.yMax - totalOffset);                 
-            co.transform.position = tf;
+            co.transform.localPosition = tf;
             Debug.Log($"Placed character {c.Name} at {tf}");
         }
     }
