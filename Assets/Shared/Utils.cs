@@ -44,10 +44,6 @@ namespace JamazonBrine
         {
             GameObject characterObject = GameObject.Instantiate(prefab);
             characterObject.GetComponent<Image>().sprite = character.Texture.ToSprite();
-            Debug.Log($"Character null? {character is null}");
-            Debug.Log($"Character object null? {characterObject is null}");
-            Debug.Log($"Nameplate null? {characterObject.transform.Find("Nameplate") is null}");
-            Debug.Log($"Component null? {characterObject.transform.Find("Nameplate").GetComponent<TextMeshProUGUI>() is null}");
             characterObject.transform.Find("Nameplate").GetComponent<TextMeshProUGUI>().text = character.Name;
             return characterObject;
         }

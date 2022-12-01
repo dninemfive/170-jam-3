@@ -16,14 +16,18 @@ namespace JamazonBrine
         {
             Debug.Log($"{Side}CharacterDisplayer.LoadScenario({scenario.Name})");
             List<Character> characters = scenario.CharactersOn(Side).ToList();
-            Debug.Log($"Adding characters {characters.Select(x => x.Name).CommaSeparatedList()}");
             Rect rect = GetComponent<RectTransform>().rect;
             float offset = rect.height / characters.Count, totalOffset = offset;
             foreach(Character c in characters)
             {
-                c.InstantiateCharacter(CharacterPrefab);
+                Debug.Log($"Adding character {c.Name}...");
+                GameObject co = c.InstantiateCharacter(CharacterPrefab);
+                co.transform.SetParent(transform);
+                Debug.Log($"Set {c.Name}'s parent to {gameObject.name}");
                 Vector3 tf = new(transform.position.x, rect.yMax - totalOffset);
                 totalOffset += offset;
+                Debug.Log($"{c.Name}'s internal position is {tf}");
+                co.transform.position = tf;
             }
         }
         // Start is called before the first frame update
