@@ -79,9 +79,7 @@ namespace JamazonBrine
         public static void GoToMainMenu() => Utils.LoadScene("MainMenu");
         public static void GoToCombatScene()
         {
-            Utils.LoadScene("Combat");
-            // null reference
-            GameObject.Find("Canvas/LeftCharacterDisplayPanel").GetComponent<CharacterDisplayer>().LoadScenario(CurrentScenario);
+            Utils.LoadScene("Combat");            
         }
     }
 }
