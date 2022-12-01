@@ -21,13 +21,17 @@ namespace JamazonBrine
         /// <summary>
         /// A list of <see cref="Move">Moves</see> available to a character with this archetype.
         /// </summary>
-        public virtual List<Move> Moves { get; set; }
+        public virtual List<Move> Moves { get; }
     }
     /// <summary>
     /// Archetype used for basic testing purposes.
     /// </summary>
     public record DebugArchetype : Archetype
     {
-        public override Move SelectMove() => new DebugMove("Debug move");
+        public override Move SelectMove() => Moves.First();
+        public override List<Move> Moves => new()
+        {
+            new DebugMove("Debug move")
+        };
     }
 }

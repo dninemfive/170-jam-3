@@ -13,10 +13,11 @@ namespace JamazonBrine
         private static Dictionary<AssignableMethod, UnityAction> AssignableMethods = new()
         {
             { AssignableMethod.GoToCombat, GameManager.GoToCombatScene },
-            { AssignableMethod.GoToMainMenu, GameManager.GoToMainMenu }
+            { AssignableMethod.GoToMainMenu, GameManager.GoToMainMenu },
+            { AssignableMethod.DoRound, GameManager.DoRound },
         };
         // Start is called before the first frame update
         void Start() => gameObject.AddButtonListener(AssignableMethods[MethodToAssign]);
     }
-    public enum AssignableMethod { GoToCombat, GoToMainMenu }
+    public enum AssignableMethod { GoToCombat, GoToMainMenu, DoRound }
 }

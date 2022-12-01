@@ -22,6 +22,7 @@ namespace JamazonBrine
                 Debug.Log($"Setting current scenario to {value.Name}");
                 currentScenario = value;
                 CombatUIManager.LoadCurrentScenario();
+                BeginCurrentScenario();
             }
         }
         /// <summary>
@@ -36,19 +37,14 @@ namespace JamazonBrine
         /// Whether a <see cref="Bootstrapper"/> class has initialized the <c>GameManager.</c>
         /// </summary>
         public static bool Initialized { get; private set; } = false;
+        public static SceneStatus CurrentSceneStatus { get; private set; }
         /// <summary>
         /// Executes an entire <see cref="CombatScenario"/>, playing out rounds until its <see cref="CombatScenario.WinCondition">win condition</see> is met.
         /// </summary>
-        public static void PerformCurrentScenario()
+        public static void BeginCurrentScenario()
         {
-            RoundNumber = 0;
-            SceneStatus status;
-            while ((status = CurrentScenario.CheckWinCondition) is not SceneStatus.Ongoing)
-            {
-                DoRound();
-                RoundNumber++;
-            }
-            Debug.Log($"The scene {CurrentScenario.Name} concluded with the result {status} after {RoundNumber} rounds.");
+            RoundNumber = 1;
+            DoRound();
         }
         /// <summary>
         /// Performs one round, which consists of one turn per <see cref="Side"/> present in the scene.
@@ -58,6 +54,13 @@ namespace JamazonBrine
             Debug.Log($"Doing round {RoundNumber}...");
             DoTurn(CurrentScenario.StartingSide);
             DoTurn(CurrentScenario.StartingSide.Opposite());
+            CurrentSceneStatus = CurrentScenario.CheckWinCondition;
+            if(CurrentSceneStatus is not SceneStatus.Ongoing)
+            {
+                Debug.Log($"The scene {CurrentScenario.Name} concluded with the result {CurrentSceneStatus} after {RoundNumber} rounds.");
+                return;
+            }
+            RoundNumber++;
         }
         /// <summary>
         /// Performs one <see cref="Side"/>'s turn, consisting of the set of turns of all <see cref="Character"/>s on that side.
