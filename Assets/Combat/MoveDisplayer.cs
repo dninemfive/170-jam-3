@@ -17,14 +17,14 @@ namespace JamazonBrine
             ClearCurrentMoves();
             Debug.Log($"ActionDisplayer.LoadMoves({character.Name})");
             List<Move> moves = character.Archetype.Moves;
-            Rect rect = GetComponent<RectTransform>().rect;
-            Debug.Log($"Top left corner: {rect.TopLeftCorner()}");
+            RectTransform rtf = GetComponent<RectTransform>();
+            Debug.Log($"Top left corner: {rtf.TopLeftCorner()}");
             float offset = MovePrefab.GetComponent<RectTransform>().rect.height, totalOffset = 0;
-            float width = rect.width;
+            float width = rtf.rect.width;
             Debug.Log($"offset is {offset}, width is {width}");
             foreach(Move m in moves)
             {
-                PlaceMove(m, rect, totalOffset);
+                PlaceMove(m, rtf, totalOffset);
                 totalOffset += offset;
             }
         }
@@ -34,13 +34,13 @@ namespace JamazonBrine
             foreach (GameObject go in CurrentMoves) Destroy(go);
             CurrentMoves.Clear();
         }
-        public void PlaceMove(Move m, Rect rect, float totalOffset)
+        public void PlaceMove(Move m, RectTransform rtf, float totalOffset)
         {
             Debug.Log($"Placing move {m.Name}...");
             GameObject mo = m.Instantiate(MovePrefab);
             CurrentMoves.Add(mo);
             mo.transform.SetParent(transform);
-            Vector3 tf = rect.TopLeftCorner() - new Vector2(0, totalOffset);
+            Vector3 tf = rtf.TopLeftCorner().OffsetBy(y: totalOffset);
             Debug.Log($"Placed {m.Name} at {tf}");
             mo.transform.position = tf;
         }

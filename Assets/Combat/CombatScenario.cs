@@ -99,6 +99,7 @@ namespace JamazonBrine
         /// </summary>
         public void Load()
         {
+            CharactersPresent.Clear();
             foreach ((string cName, CharacterLocation location) in characterLocations) Add(Data.Characters[cName], location);
         }
     }

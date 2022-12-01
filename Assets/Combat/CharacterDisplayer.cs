@@ -12,31 +12,33 @@ namespace JamazonBrine
         private GameObject CharacterPrefab;
         [SerializeField]
         private Side Side;
+        private readonly List<GameObject> CurrentCharacters = new();
         public void LoadScenario(CombatScenario scenario)
         {
+            ClearCurrentCharacters();
             List<Character> characters = scenario.CharactersOn(Side).ToList();
-            Rect rect = GetComponent<RectTransform>().rect;
-            float offset = rect.height / (characters.Count + 1), totalOffset = offset;
+            float height = GetComponent<RectTransform>().rect.height;
+            float offset = height / (characters.Count + 1), totalOffset = offset;
             foreach(Character c in characters)
             {
-                Debug.Log($"Adding character {c.Name}...");
-                GameObject co = c.Instantiate(CharacterPrefab);
-                co.transform.SetParent(transform);
-                Vector3 tf = new(transform.position.x, rect.height - totalOffset);
+                PlaceCharacter(c, totalOffset, height);
                 totalOffset += offset;
-                co.transform.position = tf;
             }
         }
-        // Start is called before the first frame update
-        void Start()
+        public void ClearCurrentCharacters()
         {
-
+            Debug.Log($"Clearing {CurrentCharacters.Count} existing characters from the {Side} character displayer...");
+            foreach (GameObject go in CurrentCharacters) Destroy(go);
+            CurrentCharacters.Clear();
         }
-
-        // Update is called once per frame
-        void Update()
-        {
-
+        private void PlaceCharacter(Character c, float totalOffset, float height)
+        {           
+            GameObject co = c.Instantiate(CharacterPrefab);
+            CurrentCharacters.Add(co);
+            co.transform.SetParent(transform);
+            Vector3 tf = new(transform.position.x, height - totalOffset);                 
+            co.transform.position = tf;
+            Debug.Log($"Placed character {c.Name} at {tf}");
         }
     }
 }
