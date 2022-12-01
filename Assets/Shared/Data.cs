@@ -35,8 +35,11 @@ namespace JamazonBrine
         {
             new("Debug Scene", 
                 (CombatScenario _) => GameManager.RoundNumber > 1 ? SceneStatus.Ongoing : SceneStatus.NeitherWon, 
-                ("Jim", new(Side.Left, 1)), 
-                ("Bront", new(Side.Right, 1))
+                ("Jim", new(Side.Left, 1)),
+                ("Liz", new(Side.Left, 2)),
+                ("Bob", new(Side.Left, 3)),
+                ("Bront", new(Side.Right, 1)),
+                ("Alice", new(Side.Right, 2))
                )
         };
         /// <summary>
