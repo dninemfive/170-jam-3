@@ -16,7 +16,7 @@ namespace Subtegral.DialogueSystem.Runtime
         [SerializeField] private TextMeshProUGUI dialogueText;
         [SerializeField] private Button choicePrefab;
         [SerializeField] private Transform buttonContainer;
-        [SerializeField] private Scene nextScene;
+        [SerializeField] private UnityEngine.Object nextScene;
 
         private void Start()
         {
