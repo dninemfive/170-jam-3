@@ -76,5 +76,6 @@ namespace JamazonBrine
                 yield return Side.Right;
             }
         }
+        public static bool IsNonNullAndZero(this StatTracker tracker) => tracker is not null && tracker.CurrentValue == 0;
     }    
 }

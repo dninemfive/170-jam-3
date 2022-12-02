@@ -11,9 +11,10 @@ namespace JamazonBrine
     /// </summary>
     public abstract record Archetype
     {
-        public static readonly DebugArchetype DebugArchetype = new();
+        public static readonly DebugArchetype Debug = new();
         public static readonly BasicArchetype Basic = new();
-
+        public static readonly HeavyArchetype Heavy = new();
+        public static readonly DroneArchetype Drone = new();
         /// <summary>
         /// Selects a <see cref="Move"/>, theoretically but not necessarily from this archetype's <see cref="Moves">move list</see>,
         /// for this character to play, if AI-controlled.
@@ -54,6 +55,13 @@ namespace JamazonBrine
         {
             new Attack("Strike", 15, Attack.StatType.Health),
             new Attack("Convince", 4, Attack.StatType.Conviction)
+        };
+    }
+    public record DroneArchetype : Archetype
+    {
+        public override List<Move> Moves => new()
+        {
+            new Attack("Zap", 5, Attack.StatType.Health)
         };
     }
 }

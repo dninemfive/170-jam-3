@@ -17,12 +17,11 @@ namespace JamazonBrine
         /// </summary>
         private static readonly List<Character> characters = new()
         {
-            new("Jim", Texture2D.whiteTexture, Archetype.BasicArchetype, Faction.Civilian),
-            new("Liz", Texture2D.whiteTexture, Archetype.DebugArchetype, Faction.Civilian),
-            new("Bob", Texture2D.whiteTexture, Archetype.DebugArchetype, Faction.Civilian),
-            new("Bront", Texture2D.whiteTexture, Archetype.DebugArchetype, Faction.YamazonCrime),
-            new("Alice", Texture2D.whiteTexture, Archetype.DebugArchetype, Faction.YamazonCrime),
-            new("James", Texture2D.whiteTexture, Archetype.DebugArchetype, Faction.YamazonCrime)
+            new("#C076DC", Texture2D.whiteTexture, Archetype.Basic, Faction.YamazonCrime),
+            new("Yalexa", Texture2D.whiteTexture, Archetype.Drone, Faction.YamazonCrime),
+            new("Wiktor", Texture2D.whiteTexture, Archetype.Basic, Faction.Civilian),
+            new("Yukio", Texture2D.whiteTexture, Archetype.Heavy, Faction.Civilian),
+            new("Alice", Texture2D.whiteTexture, Archetype.Drone, Faction.Civilian)
         };
         /// <summary>
         /// All <see cref="Character"/>s in the game, indexed by name.
@@ -33,14 +32,19 @@ namespace JamazonBrine
         /// </summary>
         private static readonly List<CombatScenario> scenarios = new()
         {
-            new("Debug Scene", 
-                (CombatScenario _) => RoundManager.RoundNumber < 3 ? ScenarioStatus.Ongoing : ScenarioStatus.NeitherWon, 
-                ("Jim", new(Side.Left, 1)),
-                ("Liz", new(Side.Left, 2)),
-                ("Bob", new(Side.Left, 3)),
-                ("Bront", new(Side.Right, 1)),
-                ("Alice", new(Side.Right, 2))
-               )
+            new("The Slums", 
+                winCondition: delegate(CombatScenario scenario)
+                {
+                    if (scenario.CharactersOn(Side.Left).All(x => x.Defeated)) return ScenarioStatus.RightWon;
+                    if (scenario.CharactersOn(Side.Right).All(x => x.Defeated)) return ScenarioStatus.LeftWon;
+                    return ScenarioStatus.Ongoing;
+                }, 
+                ("#C076DC", new(Side.Left, 1)),
+                ("Yalexa", new(Side.Left, 2)),
+                ("Wiktor", new(Side.Right, 1)),
+                ("Yukio", new(Side.Right, 2)),
+                ("Alice", new(Side.Right, 3))
+               ),
         };
         /// <summary>
         /// All scenes in the game, in order. As an enumerable to avoid modifying <see cref="scenarios"/> during gameplay.

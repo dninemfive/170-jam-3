@@ -66,7 +66,17 @@ namespace JamazonBrine
             }
         }
         private readonly Dictionary<Stat, StatTracker> stats = new();
-        public StatTracker this[Stat stat] => stats[stat];
+        public StatTracker this[Stat stat]
+        {
+            get
+            {
+                if(stats.ContainsKey(stat)) return stats[stat];
+                return null;
+            }
+        }
+        public StatTracker Health => this[Stat.Health];
+        public StatTracker Conviction => this[Stat.Conviction];
         public override string ToString() => Name;
+        public bool Defeated => Health.IsNonNullAndZero() || Conviction.IsNonNullAndZero();
     }    
 }

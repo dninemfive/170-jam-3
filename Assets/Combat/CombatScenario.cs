@@ -75,10 +75,10 @@ namespace JamazonBrine
         /// <param name="_characterLocations">The characters present in the scene. As this is a 
         /// <see href="https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/params">params</see> 
         /// argument, these can simply be comma-delimited.</param>
-        public CombatScenario(string name, WinConditionChecker checker, params (string name, CharacterLocation location)[] _characterLocations)
+        public CombatScenario(string name, WinConditionChecker winCondition, params (string name, CharacterLocation location)[] _characterLocations)
         {
             Name = name;
-            WinCondition = checker;
+            WinCondition = winCondition;
             Debug.Log($"Scene {name} has characters {_characterLocations.Select(x => x.name).CommaSeparatedList()}");
             characterLocations = _characterLocations.ToList();
         }
