@@ -5,6 +5,7 @@ using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 using Subtegral.DialogueSystem.DataContainers;
 
 namespace Subtegral.DialogueSystem.Runtime
@@ -15,6 +16,7 @@ namespace Subtegral.DialogueSystem.Runtime
         [SerializeField] private TextMeshProUGUI dialogueText;
         [SerializeField] private Button choicePrefab;
         [SerializeField] private Transform buttonContainer;
+        [SerializeField] private Scene nextScene;
 
         private void Start()
         {
@@ -25,6 +27,11 @@ namespace Subtegral.DialogueSystem.Runtime
         private void ProceedToNarrative(string narrativeDataGUID)
         {
             var text = dialogue.DialogueNodeData.Find(x => x.NodeGUID == narrativeDataGUID).DialogueText;
+
+            if(text == "Next Scene ->"){
+                SceneManager.LoadScene (sceneName:nextScene.name);
+            }
+
             var choices = dialogue.NodeLinks.Where(x => x.BaseNodeGUID == narrativeDataGUID);
             dialogueText.text = ProcessProperties(text);
             var buttons = buttonContainer.GetComponentsInChildren<Button>();

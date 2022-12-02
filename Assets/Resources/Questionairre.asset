@@ -1,0 +1,54 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 78b3fd9154634ebdb8c8a48960b9a16a, type: 3}
+  m_Name: Questionairre
+  m_EditorClassIdentifier: 
+  NodeLinks:
+  - BaseNodeGUID: 48829fda-68a9-4c91-ba1a-70aa8a01a45e
+    PortName: Next
+    TargetNodeGUID: 5dfca92a-5b21-495e-86a0-f5592a5f5221
+  - BaseNodeGUID: 5dfca92a-5b21-495e-86a0-f5592a5f5221
+    PortName: Dog
+    TargetNodeGUID: 3fd9be98-7fa3-423c-ac14-92733492a07a
+  - BaseNodeGUID: 5dfca92a-5b21-495e-86a0-f5592a5f5221
+    PortName: Bird
+    TargetNodeGUID: 063d52cc-5ba0-4683-8273-1790738ca4a4
+  - BaseNodeGUID: 063d52cc-5ba0-4683-8273-1790738ca4a4
+    PortName: Next Question
+    TargetNodeGUID: bceab1d1-22a6-4928-ac19-48e11e73c369
+  - BaseNodeGUID: 3fd9be98-7fa3-423c-ac14-92733492a07a
+    PortName: Next Question
+    TargetNodeGUID: bceab1d1-22a6-4928-ac19-48e11e73c369
+  - BaseNodeGUID: 5dfca92a-5b21-495e-86a0-f5592a5f5221
+    PortName: Cat
+    TargetNodeGUID: 3fd9be98-7fa3-423c-ac14-92733492a07a
+  - BaseNodeGUID: bceab1d1-22a6-4928-ac19-48e11e73c369
+    PortName: Vanilla
+    TargetNodeGUID: 4935b651-c06b-4b8e-819b-652e2754ae22
+  DialogueNodeData:
+  - NodeGUID: bceab1d1-22a6-4928-ac19-48e11e73c369
+    DialogueText: Favorite Ice Cream?
+    Position: {x: 1076.8, y: 191.2}
+  - NodeGUID: 3fd9be98-7fa3-423c-ac14-92733492a07a
+    DialogueText: A solid basic answer. Good Job!
+    Position: {x: 698.4, y: 120.8}
+  - NodeGUID: 063d52cc-5ba0-4683-8273-1790738ca4a4
+    DialogueText: Nice! Cats and Dogs can't fly!
+    Position: {x: 698.4, y: 363.2}
+  - NodeGUID: 5dfca92a-5b21-495e-86a0-f5592a5f5221
+    DialogueText: What is your favorite animal
+    Position: {x: 296.8, y: 188}
+  - NodeGUID: 4935b651-c06b-4b8e-819b-652e2754ae22
+    DialogueText: Good choice!
+    Position: {x: 1423.2, y: 192}
+  ExposedProperties: []
+  CommentBlockData: []
