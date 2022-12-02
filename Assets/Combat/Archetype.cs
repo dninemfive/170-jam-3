@@ -22,6 +22,11 @@ namespace JamazonBrine
         /// A list of <see cref="Move">Moves</see> available to a character with this archetype.
         /// </summary>
         public virtual List<Move> Moves { get; }
+        public virtual List<Stat> Stats => new()
+        {
+            Stat.Health,
+            Stat.Conviction
+        };
     }
     /// <summary>
     /// Archetype used for basic testing purposes.
@@ -33,5 +38,13 @@ namespace JamazonBrine
         {
             new DebugMove("Debug move")
         };
+    }
+    public record BasicArchetype : Archetype
+    {
+        public override Move SelectMove()
+        {
+            throw new NotImplementedException();
+        }
+        public override List<Move> Moves => new();
     }
 }
