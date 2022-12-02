@@ -14,10 +14,10 @@ namespace JamazonBrine
         {
             { AssignableMethod.GoToCombat, GameManager.GoToCombatScene },
             { AssignableMethod.GoToMainMenu, GameManager.GoToMainMenu },
-            { AssignableMethod.DoRound, GameManager.DoRound },
+            { AssignableMethod.FinishTurn, RoundManager.BeginNextTurn },
         };
         // Start is called before the first frame update
         void Start() => gameObject.AddButtonListener(AssignableMethods[MethodToAssign]);
     }
-    public enum AssignableMethod { GoToCombat, GoToMainMenu, DoRound }
+    public enum AssignableMethod { GoToCombat, GoToMainMenu, FinishTurn }
 }

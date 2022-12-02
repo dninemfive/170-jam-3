@@ -48,12 +48,13 @@ namespace JamazonBrine
             .Where(x => x.Key.Side == side)
             .OrderBy(x => x.Key.Order)
             .Select(x => x.Value);
+        public IEnumerable<Character> CharacterOrder => CharactersOn(StartingSide).Union(CharactersOn(StartingSide.Opposite()));
         /// <summary>
         /// A delegate type which determines the winner, if any, of a given scene.
         /// </summary>
         /// <param name="scene">The scene whose conditions to check.</param>
-        /// <returns>The <see cref="SceneStatus">status</see> of the current scene.</returns>
-        public delegate SceneStatus WinConditionChecker(CombatScenario scene);
+        /// <returns>The <see cref="ScenarioStatus">status</see> of the current scene.</returns>
+        public delegate ScenarioStatus WinConditionChecker(CombatScenario scene);
         /// <summary>
         /// The <see cref="WinConditionChecker">win condition</see> for this particular scene.
         /// </summary>
@@ -61,7 +62,7 @@ namespace JamazonBrine
         /// <summary>
         /// Checks the <see cref="WinCondition">WinCondition</see> for this scene. See <see cref="WinConditionChecker"/> for more details.
         /// </summary>
-        public SceneStatus CheckWinCondition => WinCondition(this);
+        public ScenarioStatus CheckWinCondition => WinCondition(this);
         /// <summary>
         /// Stores the names and locations of the characters in this scene until it's loaded.
         /// </summary>

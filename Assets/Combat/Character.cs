@@ -50,6 +50,7 @@ namespace JamazonBrine
             else
             {
                 Debug.Log($"Character {Name} selects move {Archetype.SelectMove()}.");
+                RoundManager.BeginNextTurn();
             }
         }
     }    
