@@ -29,24 +29,27 @@ namespace JamazonBrine
         /// </summary>
         public static readonly Dictionary<string, Character> Characters = new();
         /// <summary>
-        /// A list of all <see cref="Scene"/>s in the game. Used to populate the <see cref="Scenes"/> enumerable.
+        /// A list of all <see cref="CombatScenario"/>s in the game. Used to populate the <see cref="Scenarios"/> enumerable.
         /// </summary>
-        private static readonly List<Scene> scenes = new()
+        private static readonly List<CombatScenario> scenarios = new()
         {
             new("Debug Scene", 
-                (Scene _) => GameManager.RoundNumber > 1 ? SceneStatus.Ongoing : SceneStatus.NeitherWon, 
-                ("Jim", new(Side.Left, 1)), 
-                ("Bront", new(Side.Right, 1))
+                (CombatScenario _) => RoundManager.RoundNumber < 3 ? ScenarioStatus.Ongoing : ScenarioStatus.NeitherWon, 
+                ("Jim", new(Side.Left, 1)),
+                ("Liz", new(Side.Left, 2)),
+                ("Bob", new(Side.Left, 3)),
+                ("Bront", new(Side.Right, 1)),
+                ("Alice", new(Side.Right, 2))
                )
         };
         /// <summary>
-        /// All scenes in the game, in order. As an enumerable to avoid modifying <see cref="scenes"/> during gameplay.
+        /// All scenes in the game, in order. As an enumerable to avoid modifying <see cref="scenarios"/> during gameplay.
         /// </summary>
-        public static IEnumerable<Scene> Scenes
+        public static IEnumerable<CombatScenario> Scenarios
         {
             get
             {
-                foreach (Scene scene in scenes) yield return scene;
+                foreach (CombatScenario scenario in scenarios) yield return scenario;
             }
         }
         /// <summary>

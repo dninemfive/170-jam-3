@@ -36,6 +36,7 @@ namespace JamazonBrine
         public override void Execute()
         {
             Debug.Log($"Executing {this}!");
+            RoundManager.BeginNextTurn();
         }
     }
 }

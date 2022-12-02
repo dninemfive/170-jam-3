@@ -16,7 +16,7 @@ namespace JamazonBrine
         /// <summary>
         /// The texture this character uses.
         /// </summary>
-        public Texture2D Sprite;
+        public Texture2D Texture;
         /// <summary>
         /// This character's <see cref="Archetype"/>, which controls which moves it can play during gameplay.
         /// </summary>
@@ -29,10 +29,10 @@ namespace JamazonBrine
         /// Whether the player can control this character.
         /// </summary>
         public bool IsPlayerControlled => Faction == GameManager.PlayerFaction;
-        public Character(string name, Texture2D sprite, Archetype archetype, Faction faction)
+        public Character(string name, Texture2D texture, Archetype archetype, Faction faction)
         {
             Name = name;
-            Sprite = sprite;
+            Texture = texture;
             Archetype = archetype;
             Faction = faction;
         }
@@ -42,13 +42,14 @@ namespace JamazonBrine
         /// </summary>
         public void DoTurn()
         {
+            CombatUIManager.MoveDisplayer.LoadMoves(this);
             if(IsPlayerControlled)
             {
-                Debug.Log($"\t\tAwaiting player input for character {Name}...");
+                //Debug.Log($"Awaiting player input for character {RoundManager.CharacterIndex} ({Name})...");
             }
             else
             {
-                Debug.Log($"\t\tCharacter {Name} selects move {Archetype.SelectMove()}.");
+                //Debug.Log($"Character {RoundManager.CharacterIndex} ({Name}) selects move {Archetype.SelectMove()}.");
             }
         }
     }    
