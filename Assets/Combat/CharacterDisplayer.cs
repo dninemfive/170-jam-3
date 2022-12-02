@@ -36,7 +36,7 @@ namespace JamazonBrine
         }
         public void ClearCurrentCharacters()
         {
-            Debug.Log($"Clearing {CurrentCharacters.Count} existing characters from the {Side} character displayer...");
+            //Debug.Log($"Clearing {CurrentCharacters.Count} existing characters from the {Side} character displayer...");
             foreach (GameObject go in CurrentCharacters) Destroy(go);
             CurrentCharacters.Clear();
         }

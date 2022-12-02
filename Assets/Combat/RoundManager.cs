@@ -17,8 +17,7 @@ namespace JamazonBrine
             private set
             {
                 if (value < 0) throw new ArgumentOutOfRangeException(nameof(value));
-                if (value >= CharacterOrder.Count) characterIndex = 0;
-                else characterIndex = value;
+                characterIndex = value;
             }
         }
         private static List<Character> CharacterOrder { get; set; }
@@ -35,6 +34,7 @@ namespace JamazonBrine
         public static void BeginNextRound()
         {
             RoundNumber++;
+            Debug.Log($"Round {RoundNumber}");
             CharacterIndex = 0;
             if((CurrentStatus = CurrentScenario.CheckWinCondition) is not ScenarioStatus.Ongoing)
             {
@@ -45,15 +45,16 @@ namespace JamazonBrine
         }
         public static void BeginNextTurn()
         {
-            CurrentCharacter.DoTurn();
-            if(CharacterIndex >= CharacterOrder.Count)
+            Debug.Log($"BeginNextTurn({RoundNumber}, {CharacterIndex})");
+            if (CharacterIndex >= CharacterOrder.Count)
             {
                 BeginNextRound();
             }
-            else
-            {
-                CharacterIndex++;
-            }
+            Debug.Log($"Begin Next Turn ({CharacterIndex}/{CharacterOrder.Count}) ({CurrentCharacter.Name}) ({(CurrentCharacter.IsPlayerControlled ? "PC" : "NPC")})");            
+            CurrentCharacter.DoTurn();
+            bool lastCharacterWasNPC = !CurrentCharacter.IsPlayerControlled;
+            CharacterIndex++;
+            if(lastCharacterWasNPC) BeginNextTurn();
         }
         public static void EndScenario()
         {

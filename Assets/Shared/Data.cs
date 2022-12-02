@@ -34,7 +34,7 @@ namespace JamazonBrine
         private static readonly List<CombatScenario> scenarios = new()
         {
             new("Debug Scene", 
-                (CombatScenario _) => RoundManager.RoundNumber > 1 ? ScenarioStatus.Ongoing : ScenarioStatus.NeitherWon, 
+                (CombatScenario _) => RoundManager.RoundNumber < 3 ? ScenarioStatus.Ongoing : ScenarioStatus.NeitherWon, 
                 ("Jim", new(Side.Left, 1)),
                 ("Liz", new(Side.Left, 2)),
                 ("Bob", new(Side.Left, 3)),
