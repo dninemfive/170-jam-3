@@ -524,7 +524,7 @@ MonoBehaviour:
   dialogueText: {fileID: 1818617936}
   choicePrefab: {fileID: 3102500559854669817, guid: 18f57cb3250d49140b6a4533d3346857, type: 3}
   buttonContainer: {fileID: 1172275448}
-  nextScene: {fileID: 102900000, guid: 2cda990e2423bbf4892e6590ba056729, type: 3}
+  nextScene: {fileID: 102900000, guid: 35b27cd6532892041baae417f58c35c0, type: 3}
 --- !u!1 &972520303
 GameObject:
   m_ObjectHideFlags: 0
