@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace JamazonBrine
@@ -35,6 +36,10 @@ namespace JamazonBrine
             Texture = texture;
             Archetype = archetype;
             Faction = faction;
+            foreach((Stat stat, int maxValue) in Archetype.Stats)
+            {
+                stats.Add(stat, new(stat, maxValue, this));
+            }
         }
         /// <summary>
         /// Called to have this character perform its role in the turn. If player-controlled, awaits player input;
@@ -52,5 +57,16 @@ namespace JamazonBrine
                 //Debug.Log($"Character {RoundManager.CharacterIndex} ({Name}) selects move {Archetype.SelectMove()}.");
             }
         }
+        public Side? Side
+        {
+            get
+            {
+                foreach (Side side in Utils.AllSides) if (RoundManager.CurrentScenario.CharactersOn(side).Contains(this)) return side;
+                return null;
+            }
+        }
+        private readonly Dictionary<Stat, StatTracker> stats = new();
+        public StatTracker this[Stat stat] => stats[stat];
+        public override string ToString() => Name;
     }    
 }

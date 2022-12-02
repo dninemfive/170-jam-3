@@ -12,20 +12,22 @@ namespace JamazonBrine
     public abstract record Archetype
     {
         public static readonly DebugArchetype DebugArchetype = new();
+        public static readonly BasicArchetype Basic = new();
+
         /// <summary>
         /// Selects a <see cref="Move"/>, theoretically but not necessarily from this archetype's <see cref="Moves">move list</see>,
         /// for this character to play, if AI-controlled.
         /// </summary>
         /// <returns>The selected <see cref="Move"/>.</returns>
-        public abstract Move SelectMove();
+        public virtual Move SelectMove() => Moves.Random();
         /// <summary>
         /// A list of <see cref="Move">Moves</see> available to a character with this archetype.
         /// </summary>
         public virtual List<Move> Moves { get; }
-        public virtual List<Stat> Stats => new()
+        public virtual List<(Stat stat, int MaxValue)> Stats => new()
         {
-            Stat.Health,
-            Stat.Conviction
+            (Stat.Health, 10),
+            (Stat.Conviction, 10)
         };
     }
     /// <summary>
@@ -33,7 +35,6 @@ namespace JamazonBrine
     /// </summary>
     public record DebugArchetype : Archetype
     {
-        public override Move SelectMove() => Moves.First();
         public override List<Move> Moves => new()
         {
             new DebugMove("Debug move")
@@ -41,10 +42,18 @@ namespace JamazonBrine
     }
     public record BasicArchetype : Archetype
     {
-        public override Move SelectMove()
+        public override List<Move> Moves => new()
         {
-            throw new NotImplementedException();
-        }
-        public override List<Move> Moves => new();
+            new Attack("Strike", 10, Attack.StatType.Health),
+            new Attack("Convince", 7, Attack.StatType.Conviction)
+        };
+    }
+    public record HeavyArchetype : Archetype
+    {
+        public override List<Move> Moves => new()
+        {
+            new Attack("Strike", 15, Attack.StatType.Health),
+            new Attack("Convince", 4, Attack.StatType.Conviction)
+        };
     }
 }

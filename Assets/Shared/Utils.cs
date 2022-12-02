@@ -62,5 +62,19 @@ namespace JamazonBrine
         public static Sprite ToSprite(this Texture2D tex) => Sprite.Create(tex, new(0, 0, tex.width, tex.height), new(0.5f, 0.5f));
         public static string CommaSeparatedList(this IEnumerable<string> strings) => strings.Aggregate((string a, string b) => $"{a}, {b}");
         public static Vector2 OffsetBy(this Vector2 vec, float x = 0, float y = 0) => vec + new Vector2(x, y);
+        public static System.Random Rng = new();
+        public static T Random<T>(this IEnumerable<T> enumerable)
+        {
+            if (!enumerable.Any()) return default;
+            return enumerable.ElementAt(Rng.Next(0, enumerable.Count() - 1));
+        }
+        public static IEnumerable<Side> AllSides
+        {
+            get
+            {
+                yield return Side.Left;
+                yield return Side.Right;
+            }
+        }
     }    
 }

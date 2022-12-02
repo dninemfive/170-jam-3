@@ -13,7 +13,7 @@ namespace JamazonBrine
     /// <summary>
     /// The faction a <see cref="Character"/> is on. If this matches the <see cref="GameManager.PlayerFaction">player's faction</see>, the character is player-controlled.
     /// </summary>
-    public enum Faction { Good, Bad }
+    public enum Faction { Civilian, YamazonCrime }
     /// <summary>
     /// The result of a scene, either <c>Ongoing</c> or the scene's final outcome.
     /// </summary>

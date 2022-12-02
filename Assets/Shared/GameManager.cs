@@ -28,7 +28,7 @@ namespace JamazonBrine
         /// <summary>
         /// The <see cref="Faction"/> which the player controls during combat.
         /// </summary>
-        public static Faction PlayerFaction = Faction.Good;
+        public static Faction PlayerFaction = Faction.Civilian;
         /// <summary>
         /// Whether a <see cref="Bootstrapper"/> class has initialized the <c>GameManager.</c>
         /// </summary>

@@ -17,12 +17,12 @@ namespace JamazonBrine
         /// </summary>
         private static readonly List<Character> characters = new()
         {
-            new("Jim", Texture2D.whiteTexture, Archetype.DebugArchetype, Faction.Good),
-            new("Liz", Texture2D.whiteTexture, Archetype.DebugArchetype, Faction.Good),
-            new("Bob", Texture2D.whiteTexture, Archetype.DebugArchetype, Faction.Good),
-            new("Bront", Texture2D.whiteTexture, Archetype.DebugArchetype, Faction.Bad),
-            new("Alice", Texture2D.whiteTexture, Archetype.DebugArchetype, Faction.Bad),
-            new("James", Texture2D.whiteTexture, Archetype.DebugArchetype, Faction.Bad)
+            new("Jim", Texture2D.whiteTexture, Archetype.BasicArchetype, Faction.Civilian),
+            new("Liz", Texture2D.whiteTexture, Archetype.DebugArchetype, Faction.Civilian),
+            new("Bob", Texture2D.whiteTexture, Archetype.DebugArchetype, Faction.Civilian),
+            new("Bront", Texture2D.whiteTexture, Archetype.DebugArchetype, Faction.YamazonCrime),
+            new("Alice", Texture2D.whiteTexture, Archetype.DebugArchetype, Faction.YamazonCrime),
+            new("James", Texture2D.whiteTexture, Archetype.DebugArchetype, Faction.YamazonCrime)
         };
         /// <summary>
         /// All <see cref="Character"/>s in the game, indexed by name.
