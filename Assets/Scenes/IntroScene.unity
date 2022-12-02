@@ -520,10 +520,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37ccaca0d7c48634d8e70996696a3c4d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dialogue: {fileID: 11400000, guid: 1bc4b85ebfd4c7645b24c8b62e4b5746, type: 2}
+  dialogue: {fileID: 11400000, guid: 999575fd969a1a6429d8e697b342486c, type: 2}
   dialogueText: {fileID: 1818617936}
   choicePrefab: {fileID: 3102500559854669817, guid: 18f57cb3250d49140b6a4533d3346857, type: 3}
   buttonContainer: {fileID: 1172275448}
+  nextScene: {fileID: 102900000, guid: ee9f8f82e7d639e4394890f2c9621cd4, type: 3}
 --- !u!1 &972520303
 GameObject:
   m_ObjectHideFlags: 0

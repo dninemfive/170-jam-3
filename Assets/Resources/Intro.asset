@@ -1,0 +1,85 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 78b3fd9154634ebdb8c8a48960b9a16a, type: 3}
+  m_Name: Intro
+  m_EditorClassIdentifier: 
+  NodeLinks:
+  - BaseNodeGUID: 68b2ff78-c26d-4e0b-9e27-c16593a5e136
+    PortName: Next
+    TargetNodeGUID: 80f0cb80-57c2-47b5-81b4-e4bd72d6e7b4
+  - BaseNodeGUID: 80f0cb80-57c2-47b5-81b4-e4bd72d6e7b4
+    PortName: Continue
+    TargetNodeGUID: 5e52b183-e31b-448a-b23e-b71f2e20785f
+  - BaseNodeGUID: 5e52b183-e31b-448a-b23e-b71f2e20785f
+    PortName: Continue
+    TargetNodeGUID: 1f76cf7b-87f9-41bf-ae9a-72a5a68723f6
+  - BaseNodeGUID: 1f76cf7b-87f9-41bf-ae9a-72a5a68723f6
+    PortName: Continue
+    TargetNodeGUID: 0ca9077b-7b25-4fa1-b8eb-20596b07abd3
+  - BaseNodeGUID: 0ca9077b-7b25-4fa1-b8eb-20596b07abd3
+    PortName: Continue
+    TargetNodeGUID: 7a693777-0b34-4984-8663-f4dc4233c193
+  - BaseNodeGUID: 7a693777-0b34-4984-8663-f4dc4233c193
+    PortName: Continuee
+    TargetNodeGUID: 5f811b3e-b66e-4a25-ada4-44717e93438b
+  - BaseNodeGUID: 209826cd-d0da-4cf7-8dcf-4ac5371dbf5d
+    PortName: Continue
+    TargetNodeGUID: f9954a30-993b-449f-8820-803976c13f55
+  - BaseNodeGUID: 5f811b3e-b66e-4a25-ada4-44717e93438b
+    PortName: 'The Slums '
+    TargetNodeGUID: 209826cd-d0da-4cf7-8dcf-4ac5371dbf5d
+  - BaseNodeGUID: 5f811b3e-b66e-4a25-ada4-44717e93438b
+    PortName: 'The Gambler''s District '
+    TargetNodeGUID: b5a56781-2e30-4902-b559-b67f2229e22b
+  - BaseNodeGUID: b5a56781-2e30-4902-b559-b67f2229e22b
+    PortName: Continue
+    TargetNodeGUID: f9954a30-993b-449f-8820-803976c13f55
+  - BaseNodeGUID: f9954a30-993b-449f-8820-803976c13f55
+    PortName: Continue
+    TargetNodeGUID: 5d1c48b6-a0b4-4256-a0b6-a68dd60a1b80
+  DialogueNodeData:
+  - NodeGUID: 80f0cb80-57c2-47b5-81b4-e4bd72d6e7b4
+    DialogueText: Good morning unit #C076DC.
+    Position: {x: 260.8, y: -57.6}
+  - NodeGUID: 5e52b183-e31b-448a-b23e-b71f2e20785f
+    DialogueText: 'You have been asleep for: 16 Years 4 Months 5 Days 14 Hours and
+      23 Seconds'
+    Position: {x: 255.2, y: 48.8}
+  - NodeGUID: 1f76cf7b-87f9-41bf-ae9a-72a5a68723f6
+    DialogueText: 'The weather outside is: Cloudy.'
+    Position: {x: 260.8, y: 153.59999}
+  - NodeGUID: 0ca9077b-7b25-4fa1-b8eb-20596b07abd3
+    DialogueText: 'Your assigned function is: DEBT COLLECTOR'
+    Position: {x: 260, y: 266.40002}
+  - NodeGUID: 7a693777-0b34-4984-8663-f4dc4233c193
+    DialogueText: 'Your job is to recieve payment from citizens who have missed their
+      scheduled billing for: YAMAZON PRIME'
+    Position: {x: 259.2, y: 375.2}
+  - NodeGUID: 209826cd-d0da-4cf7-8dcf-4ac5371dbf5d
+    DialogueText: 'You have selected the citizen: #E52AF6 Please continue to The
+      Slums'
+    Position: {x: 1078.4, y: 87.2}
+  - NodeGUID: 5f811b3e-b66e-4a25-ada4-44717e93438b
+    DialogueText: Please select your first contract.
+    Position: {x: 749.6, y: 142.4}
+  - NodeGUID: b5a56781-2e30-4902-b559-b67f2229e22b
+    DialogueText: 'You have selected the citizen: #FA0243. Please continue to The
+      Gambler''s District'
+    Position: {x: 1096, y: 256.80002}
+  - NodeGUID: f9954a30-993b-449f-8820-803976c13f55
+    DialogueText: You head off for your first job.
+    Position: {x: 1661.6, y: 96.8}
+  - NodeGUID: 5d1c48b6-a0b4-4256-a0b6-a68dd60a1b80
+    DialogueText: Next Scene ->
+    Position: {x: 1996, y: 99.2}
+  ExposedProperties: []
+  CommentBlockData: []
