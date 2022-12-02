@@ -29,23 +29,24 @@ namespace Subtegral.DialogueSystem.Runtime
             var text = dialogue.DialogueNodeData.Find(x => x.NodeGUID == narrativeDataGUID).DialogueText;
 
             if(text == "Next Scene ->"){
-                SceneManager.LoadScene (sceneName:nextScene.name);
+                SceneManager.LoadScene(sceneName:"Combat");
+            } else {
+                var choices = dialogue.NodeLinks.Where(x => x.BaseNodeGUID == narrativeDataGUID);
+                dialogueText.text = ProcessProperties(text);
+                var buttons = buttonContainer.GetComponentsInChildren<Button>();
+                for (int i = 0; i < buttons.Length; i++)
+                {
+                    Destroy(buttons[i].gameObject);
+                }
+
+                foreach (var choice in choices)
+                {
+                    var button = Instantiate(choicePrefab, buttonContainer);
+                    button.GetComponentInChildren<Text>().text = ProcessProperties(choice.PortName);
+                    button.onClick.AddListener(() => ProceedToNarrative(choice.TargetNodeGUID));
+                }
             }
 
-            var choices = dialogue.NodeLinks.Where(x => x.BaseNodeGUID == narrativeDataGUID);
-            dialogueText.text = ProcessProperties(text);
-            var buttons = buttonContainer.GetComponentsInChildren<Button>();
-            for (int i = 0; i < buttons.Length; i++)
-            {
-                Destroy(buttons[i].gameObject);
-            }
-
-            foreach (var choice in choices)
-            {
-                var button = Instantiate(choicePrefab, buttonContainer);
-                button.GetComponentInChildren<Text>().text = ProcessProperties(choice.PortName);
-                button.onClick.AddListener(() => ProceedToNarrative(choice.TargetNodeGUID));
-            }
         }
 
         private string ProcessProperties(string text)
